@@ -13,15 +13,3 @@ all: Game
 Game: main.o
 	@echo "** Building..."
 	$(CXX) $(SFMLARGS) -o Game main.o $(LIBS)
-
-clean:
-	@echo "** Removing object files and executable..."
-	rm -f thegame *.o
-
-install:
-	@echo '** Installing...'
-	cp thegame /usr/bin/
-
-uninstall:
-	@echo '** Uninstalling...'
-	-$(RM) /usr/bin/thegame
