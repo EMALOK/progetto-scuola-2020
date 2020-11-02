@@ -1,2 +1,29 @@
-# progetto-scuola-2020
-file readme
+## Setup su windows con MinGW
+
+ 1. Clonare la repository
+    
+    `> git clone https://github.com/EMALOK/progetto-scuola-2020.git`
+ 
+ 2. Installare SFML
+
+    Controlla la versione di g++ e scarica la corretta versione di [SFML](https://www.sfml-dev.org)
+
+    `> g++ -v`
+
+    Estrarre la cartella e posizionarla nel disco C:\\, rinominarla "SFML"
+ 
+ 3. Installare Make
+ 
+    Installare [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
+
+4. Includere i .dll necessari
+
+	Copiare tutti i .dll contenuti in `C:\SFML\bin` all'interno del progetto
+	
+	Copiare i .dll `libgcc_s_dw2-1.dll` e `libstdc++-6.dll` contenuti in `C:\MinGW\bin` all'interno del progetto
+	
+ 5. Compilazione
+ 
+	 Compilare con Make
+     
+	 `> make`
