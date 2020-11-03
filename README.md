@@ -17,13 +17,17 @@
     Installare [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
 
 4. Includere i .dll necessari
-
-	Copiare tutti i .dll contenuti in `C:\SFML\bin` all'interno del progetto
+	Creare una cartella `build` all'interno del progetto
 	
-	Copiare i .dll `libgcc_s_dw2-1.dll` e `libstdc++-6.dll` contenuti in `C:\MinGW\bin` all'interno del progetto
+	Copiare tutti i .dll contenuti in `C:\SFML\bin` all'interno della cartella build
+	
+	Copiare i .dll `libgcc_s_dw2-1.dll` e `libstdc++-6.dll` contenuti in `C:\MinGW\bin` all'interno della cartella build
 	
  5. Compilazione
  
 	 Compilare con Make
      
 	 `> make`
+	 
+	 L'esecutibile sarà generato all'interno della cartella `build`
+
