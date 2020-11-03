@@ -1,8 +1,8 @@
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system
 SFMLARGS=-I C:\SFML\include -L C:\SFML\lib
 ODIR = build
-OBJECTS=$(ODIR)/main.o
-TOERASE=$(ODIR)\main.o
+OBJECTS=$(ODIR)/main.o $(ODIR)/GameClass.o
+TOERASE=$(ODIR)\main.o $(ODIR)\GameClass.o
 CXX := g++
 
 .PHONY: clean
