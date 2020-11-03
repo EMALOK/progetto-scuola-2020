@@ -12,6 +12,8 @@ void Game::render()
     window->clear();
 
     //DRAW
+    renderSolidObjects();
+
 
     window->display();
 }
@@ -50,11 +52,29 @@ void Game::initVars()
 void Game::initWindow()
 {
     //grandezza della finestra impostata alla grandezza dello schermo
-    videomode.height = 800;
-    videomode.width = 600;
+    videomode.height = 900;
+    videomode.width = 1400;
     
     //apri finestra del gioco
     window = new sf::RenderWindow(videomode, "Gioco", sf::Style::Close | sf::Style::Titlebar);
+}
+
+void Game::renderSolidObjects()
+{
+    for (auto currSO : solidObjects)
+    {
+        window->draw(currSO.getShape());
+    }
+}
+
+void Game::addSolidObject(SolidObject solidObject)
+{
+    solidObjects.push_back(solidObject);
+}
+
+void Game::removeSolidObject(SolidObject solidObject)
+{
+    // TODO
 }
 
 //Costruttore e Distruttore
