@@ -17,6 +17,7 @@
     Installare [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
 
 4. Includere i .dll necessari
+
 	Creare una cartella `build` all'interno del progetto
 	
 	Copiare tutti i .dll contenuti in `C:\SFML\bin` all'interno della cartella build
