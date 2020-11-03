@@ -57,6 +57,8 @@ void Game::initWindow()
     
     //apri finestra del gioco
     window = new sf::RenderWindow(videomode, "Gioco", sf::Style::Close | sf::Style::Titlebar);
+
+    window->setFramerateLimit(120);
 }
 
 void Game::renderSolidObjects()

@@ -18,8 +18,6 @@ int main()
         sf::Time elapsed = clock.restart();
         game.update(elapsed);
         game.render();
-        if (SPF.asMilliseconds() >= elapsed.asMilliseconds())
-            sf::sleep(sf::milliseconds(SPF.asMilliseconds() - elapsed.asMilliseconds()));
     }
 
     return 0;
