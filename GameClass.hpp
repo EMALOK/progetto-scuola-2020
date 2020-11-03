@@ -17,7 +17,7 @@ public:
     ~Game();
     
     //funzioni
-    void update();
+    void update(sf::Time);
     void render();
 
     bool isGameOpen();

@@ -2,7 +2,7 @@
 
 //Funzioni
 
-void Game::update()
+void Game::update(sf::Time delta_time)
 {
     pollEvents();
 }
