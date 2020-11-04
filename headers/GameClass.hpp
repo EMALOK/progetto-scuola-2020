@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "SolidObject.hpp"
+#include "Player.hpp"
 #include <vector>
 
 class Game
@@ -12,6 +13,7 @@ private:
 
     //Variabili di gioco
     std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nel mondo
+    Player *player; //Oggetto del player
 
     //funzioni private
     void initVars();
@@ -33,4 +35,6 @@ public:
 
     void addSolidObject(SolidObject);
     void removeSolidObject(SolidObject);
+
+    Player *getPlayer();
 };
