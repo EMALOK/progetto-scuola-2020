@@ -11,6 +11,7 @@ int main()
     
     //posizionamento player
     game.getPlayer()->setCoordinates(sf::Vector2f(0, 0));
+    game.getPlayer()->setDimensions(sf::Vector2f(50, 50));
 
 
     //game loop

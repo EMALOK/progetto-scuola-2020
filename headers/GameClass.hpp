@@ -20,6 +20,7 @@ private:
     void initWindow();
 
     void renderSolidObjects();
+    void renderPlayer();
 
 public:
     //costruttore e distruttore

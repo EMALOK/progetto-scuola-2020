@@ -16,11 +16,29 @@ void Game::render()
     window->clear();
 
     //DRAW
-    renderSolidObjects();
+    renderSolidObjects(); //render oggetti solidi
+    renderPlayer(); //render player
+
 
 
     window->display();
 }
+
+void Game::renderSolidObjects()
+{
+    for (auto currSO : solidObjects)
+    {
+        window->draw(currSO.getShape());
+    }
+}
+
+void Game::renderPlayer()
+{
+    player->reloadShape();
+    window->draw(player->getShape());
+}
+
+//Window functions
 
 bool Game::isGameOpen()
 {
@@ -45,8 +63,6 @@ void Game::pollEvents()
     }
 }
 
-//Funzioni private
-
 void Game::initVars()
 {
     //iniz. oggetto finestra
@@ -70,14 +86,6 @@ void Game::initWindow()
 
 //Solid Objects
 
-void Game::renderSolidObjects()
-{
-    for (auto currSO : solidObjects)
-    {
-        window->draw(currSO.getShape());
-    }
-}
-
 void Game::addSolidObject(SolidObject solidObject)
 {
     solidObjects.push_back(solidObject);
@@ -96,7 +104,7 @@ void Game::removeSolidObject(SolidObject solidObject)
     }
 }
 
-//Player getter
+// Player
 
 Player *Game::getPlayer()
 {

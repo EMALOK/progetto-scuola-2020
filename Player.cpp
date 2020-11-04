@@ -24,6 +24,11 @@ void Player::setCoordinates(sf::Vector2f coordinates)
     this->coordinates = coordinates;
 }
 
+void Player::setDimensions(sf::Vector2f dimensions)
+{
+    this->dimensions = dimensions;
+}
+
 //Update
 
 void Player::update(sf::Time elapsed)
