@@ -7,6 +7,15 @@
 void Game::update(sf::Time delta_time)
 {
     pollEvents();
+
+    sf::Vector2f velocity(sf::Vector2f(0.0f, 0.0f));
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        velocity.x = Game::player->getSpeed();
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        velocity.x = -(Game::player->getSpeed());
+    
+    Game *player.move(velocity.x, 0);
 }
 
 //Render
