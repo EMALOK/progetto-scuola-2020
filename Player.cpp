@@ -12,12 +12,12 @@ sf::Vector2f Player::getDimensions()
     return dimensions;
 }
 
-float Player::getSpeed()
+sf::Vector2f Player::getSpeed()
 {
     return speed;
 }
 
-float Player::getAcceleration()
+sf::Vector2f Player::getAcceleration()
 {
     return acceleration;
 }
@@ -39,12 +39,12 @@ void Player::setDimensions(sf::Vector2f dimensions)
     this->dimensions = dimensions;
 }
 
-void Player::setSpeed(float speed)
+void Player::setSpeed(sf::Vector2f speed)
 {
     this->speed = speed;
 }
 
-void Player::setAcceleration(float acceleration)
+void Player::setAcceleration(sf::Vector2f acceleration)
 {
     this->acceleration = acceleration;
 }

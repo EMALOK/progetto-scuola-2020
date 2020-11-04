@@ -7,8 +7,8 @@ private:
     sf::Vector2f dimensions;
     sf::RectangleShape shape;
 
-    float speed;
-    float acceleration;
+    sf::Vector2f speed;
+    sf::Vector2f acceleration;
 
 public:
     //Getters
@@ -16,15 +16,15 @@ public:
     sf::Vector2f getDimensions();
     sf::RectangleShape getShape();
 
-    float getSpeed();
-    float getAcceleration();
+    sf::Vector2f getSpeed();
+    sf::Vector2f getAcceleration();
 
     //Setters
     void setCoordinates(sf::Vector2f);
     void setDimensions(sf::Vector2f);
 
-    void setSpeed(float);
-    void setAcceleration(float);
+    void setSpeed(sf::Vector2f);
+    void setAcceleration(sf::Vector2f);
 
     //Update
     void update(sf::Time);
