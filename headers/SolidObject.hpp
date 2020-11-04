@@ -12,6 +12,8 @@ public:
     sf::Vector2f getDimensions();
     sf::RectangleShape getShape();
 
+    bool operator== (const SolidObject &);
+
     SolidObject(sf::Vector2f, sf::Vector2f);
     ~SolidObject();
 };

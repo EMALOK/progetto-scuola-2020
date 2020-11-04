@@ -13,7 +13,7 @@ private:
 
     //Variabili di gioco
     std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nel mondo
-    Player *player; //Oggetto del player
+    Player *player; //Puntatore al player
 
     //funzioni private
     void initVars();

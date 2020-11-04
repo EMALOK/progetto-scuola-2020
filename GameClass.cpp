@@ -85,7 +85,15 @@ void Game::addSolidObject(SolidObject solidObject)
 
 void Game::removeSolidObject(SolidObject solidObject)
 {
-    // TODO
+    int index = 0;
+    for (auto currSO : solidObjects)
+    {
+        if (currSO == solidObject)
+        {
+            solidObjects.erase(solidObjects.begin() + index);
+        }
+        index++;
+    }
 }
 
 //Player getter
@@ -106,4 +114,5 @@ Game::Game()
 Game::~Game()
 {
     delete window;
+    delete player;
 }

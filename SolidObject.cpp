@@ -17,6 +17,12 @@ sf::RectangleShape SolidObject::getShape()
     return shape;
 }
 
+//operatore ==
+bool SolidObject::operator==(const SolidObject &r)
+{
+    return coordinates == r.coordinates && dimensions == r.coordinates;
+}
+
 //costruttore e distruttore
 
 SolidObject::SolidObject(sf::Vector2f coordinates, sf::Vector2f dimensions)
