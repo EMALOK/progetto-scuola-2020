@@ -2,10 +2,14 @@
 
 //Funzioni
 
+//Update
+
 void Game::update(sf::Time delta_time)
 {
     pollEvents();
 }
+
+//Render
 
 void Game::render()
 {
@@ -47,6 +51,9 @@ void Game::initVars()
 {
     //iniz. oggetto finestra
     window = nullptr;
+
+    //All'avvio del gioco il player sarà posizionato alle coordinate 0, 0 con grandezza 0, 0
+    player = new Player(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
 }
 
 void Game::initWindow()
@@ -60,6 +67,8 @@ void Game::initWindow()
 
     window->setFramerateLimit(120);
 }
+
+//Solid Objects
 
 void Game::renderSolidObjects()
 {
@@ -77,6 +86,13 @@ void Game::addSolidObject(SolidObject solidObject)
 void Game::removeSolidObject(SolidObject solidObject)
 {
     // TODO
+}
+
+//Player getter
+
+Player *Game::getPlayer()
+{
+    return player;
 }
 
 //Costruttore e Distruttore
