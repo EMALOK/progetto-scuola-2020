@@ -31,4 +31,6 @@
 	 `> make`
 	 
 	 L'esecutibile sarà generato all'interno della cartella `build`
-
+	 
+	 appunti su jamboard
+https://jamboard.google.com/d/1rosZrcKeH_THEa587HVlwblJFedYjjiJiXavM-9PbL0/viewer?f=3
