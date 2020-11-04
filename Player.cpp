@@ -53,6 +53,10 @@ void Player::setAcceleration(sf::Vector2f acceleration)
 
 void Player::update(sf::Time elapsed)
 {
+    //accelerazione in base ai i tasti wasd
+    //maxxare la velocità dupo un certo valore v max
+    //lerp verso 0 per la velocità
+    //fisica
     //TODO
 }
 
