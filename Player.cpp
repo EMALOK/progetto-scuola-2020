@@ -12,6 +12,16 @@ sf::Vector2f Player::getDimensions()
     return dimensions;
 }
 
+float Player::getSpeed()
+{
+    return speed;
+}
+
+float Player::getAcceleration()
+{
+    return acceleration;
+}
+
 sf::RectangleShape Player::getShape()
 {
     return shape;
@@ -27,6 +37,16 @@ void Player::setCoordinates(sf::Vector2f coordinates)
 void Player::setDimensions(sf::Vector2f dimensions)
 {
     this->dimensions = dimensions;
+}
+
+void Player::setSpeed(float speed)
+{
+    this->speed = speed;
+}
+
+void Player::setAcceleration(float acceleration)
+{
+    this->acceleration = acceleration;
 }
 
 //Update
