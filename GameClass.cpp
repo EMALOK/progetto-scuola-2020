@@ -36,16 +36,19 @@ void Game::update(sf::Time delta_time)
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
     //alto
-    // TODO
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        // TODO
+    }
 
     /*  FISICA  */
     
-    /*  DEBUG   */ /*
+    /*//  DEBUG
     std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
     std::cout << "vel.x " << player->getSpeed().x << " ";
     std::cout << "vel.y " << player->getSpeed().y << "\n";
-    /*          */
+    */
 
     //  Decelerazioni per attrito
     //quando l'accelerazione è uguale a 0 -> applica attrito
@@ -72,21 +75,27 @@ void Game::update(sf::Time delta_time)
     // Update Posizioni e controllo collisioni
     sf::Vector2f next_player_pos(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
     
-    
-    
     // Controllo collisioni
     bool move = true;
     for (auto currSO : solidObjects)
     {
-        if (GameUtils::colliding(currSO.getCoordinates(), currSO.getDimensions(), next_player_pos, player->getDimensions()))
+        //controllo asse x
+        if (GameUtils::colliding(currSO.getCoordinates(), currSO.getDimensions(), sf::Vector2f(next_player_pos.x, player->getCoordinates().y), player->getDimensions()))
         {
-            move = false;
-            player->setSpeed(sf::Vector2f(0, 0));
+            player->setSpeed(sf::Vector2f(0, player->getSpeed().y));
+        }
+        //controllo asse y
+        if (GameUtils::colliding(currSO.getCoordinates(), currSO.getDimensions(), sf::Vector2f(player->getCoordinates().x, next_player_pos.y), player->getDimensions()))
+        {
+            player->setSpeed(sf::Vector2f(player->getSpeed().x, 0));
         }
     }
+
+    next_player_pos = sf::Vector2f(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
     
-    if (move)
+    if (move) {
         player->setCoordinates(next_player_pos);
+    }
 }
 
 //Render

@@ -12,10 +12,16 @@ int main()
     //generazione ostacolo
     SolidObject ostacolo = SolidObject(sf::Vector2f(700, 800-50), sf::Vector2f(50, 50));
     game.addSolidObject(ostacolo);
+
+    //generazione secondo piano
+    SolidObject secondopiano = SolidObject(sf::Vector2f(0, 500), sf::Vector2f(1000, 50));
+    game.addSolidObject(secondopiano);
     
     //posizionamento player
-    game.getPlayer()->setCoordinates(sf::Vector2f(0, 800-51));
+    game.getPlayer()->setCoordinates(sf::Vector2f(1400 / 2 - 50, 0));
     game.getPlayer()->setDimensions(sf::Vector2f(50, 50));
+
+    game.getPlayer()->setAcceleration(sf::Vector2f(0, 900));
 
 
     //game loop

@@ -25,6 +25,11 @@ bool SolidObject::operator==(const SolidObject &r)
 
 //costruttore e distruttore
 
+/** Oggetto solido nel mondo
+ * 
+ * @param coordinates Coordinate dell'oggetto solido
+ * @param dimensions Dimensioni dell'oggetto
+ */
 SolidObject::SolidObject(sf::Vector2f coordinates, sf::Vector2f dimensions)
 {
     this->coordinates = coordinates;
