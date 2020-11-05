@@ -5,6 +5,7 @@
 #define K_DEC 4.f //costante di decelerazione
 #define A_SPEED 350 //accelerazione orizzontale
 #define PLAYER_MAX_VH 300 //velocita orizzontale massima del player
+#define GRAVITY 900 //gravità
 
 //Funzioni
 
@@ -13,6 +14,9 @@
 void Game::update(sf::Time delta_time)
 {
     pollEvents();
+
+    //  Gravità
+    player->setAcceleration(sf::Vector2f(player->getAcceleration().x, GRAVITY));
 
     /*  CONTROLLO TASTI MOVIMENTO   */
 
@@ -38,17 +42,16 @@ void Game::update(sf::Time delta_time)
     //alto
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        // TODO
+        player->setAcceleration(sf::Vector2f(player->getAcceleration().x, -1000));
     }
 
     /*  FISICA  */
     
-    /*//  DEBUG
+    //  DEBUG
     std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
     std::cout << "vel.x " << player->getSpeed().x << " ";
     std::cout << "vel.y " << player->getSpeed().y << "\n";
-    */
 
     //  Decelerazioni per attrito
     //quando l'accelerazione è uguale a 0 -> applica attrito

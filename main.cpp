@@ -21,8 +21,6 @@ int main()
     game.getPlayer()->setCoordinates(sf::Vector2f(1400 / 2 - 50, 0));
     game.getPlayer()->setDimensions(sf::Vector2f(50, 50));
 
-    game.getPlayer()->setAcceleration(sf::Vector2f(0, 900));
-
 
     //game loop
     sf::Clock clock; //start timer
