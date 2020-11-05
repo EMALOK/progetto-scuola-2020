@@ -8,9 +8,13 @@ int main()
     //generazione pavimento
     SolidObject pavimento = SolidObject(sf::Vector2f(0, 800), sf::Vector2f(1400, 100));
     game.addSolidObject(pavimento);
+
+    //generazione ostacolo
+    SolidObject ostacolo = SolidObject(sf::Vector2f(700, 800-50), sf::Vector2f(50, 50));
+    game.addSolidObject(ostacolo);
     
     //posizionamento player
-    game.getPlayer()->setCoordinates(sf::Vector2f(0, 0));
+    game.getPlayer()->setCoordinates(sf::Vector2f(0, 800-50));
     game.getPlayer()->setDimensions(sf::Vector2f(50, 50));
 
 

@@ -1,4 +1,10 @@
 #include "headers/GameClass.hpp"
+#include "headers/GameUtils.hpp"
+#include <iostream> //debug 
+
+#define K_DEC 4.f //costante di decelerazione
+#define A_SPEED 350 //accelerazione orizzontale
+#define PLAYER_MAX_VH 300 //velocita orizzontale massima del player
 
 //Funzioni
 
@@ -8,14 +14,65 @@ void Game::update(sf::Time delta_time)
 {
     pollEvents();
 
-    sf::Vector2f velocity(sf::Vector2f(0.0f, 0.0f));
+    /*  CONTROLLO TASTI MOVIMENTO   */
 
+    //destra
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        velocity.x = Game::player->getSpeed();
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        velocity.x = -(Game::player->getSpeed());
+    {
+        player->setAcceleration(sf::Vector2f(A_SPEED, player->getAcceleration().y));
+    }
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) //se destra e sinistra non sono premuti
+    {
+        player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
+    }
     
-    Game *player.move(velocity.x, 0);
+    //sinistra
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        player->setAcceleration(sf::Vector2f(-A_SPEED, player->getAcceleration().y));
+    }
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) //se destra e sinistra non sono premuti
+    {
+        player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
+    }
+    //alto
+    // TODO
+
+    /*  FISICA  */
+    
+    /*  DEBUG   */
+    std::cout << "acc.x " << player->getAcceleration().x << " ";
+    std::cout << "acc.y " << player->getAcceleration().y << " ";
+    std::cout << "vel.x " << player->getSpeed().x << " ";
+    std::cout << "vel.y " << player->getSpeed().y << "\n";
+    /*          */
+
+    //  Decelerazioni per attrito
+    //quando l'accelerazione è uguale a 0 -> applica attrito
+    if (player->getAcceleration().x == 0 || GameUtils::discordi(player->getAcceleration().x, player->getSpeed().x))
+        player->setSpeed(sf::Vector2f(GameUtils::lerp1d(player->getSpeed().x, 0.f, K_DEC * delta_time.asSeconds()), player->getSpeed().y));
+    if (player->getAcceleration().y == 0 || GameUtils::discordi(player->getAcceleration().y, player->getSpeed().y))
+        player->setSpeed(sf::Vector2f(player->getSpeed().x, GameUtils::lerp1d(player->getSpeed().y, 0.f, K_DEC * delta_time.asSeconds())));
+    
+    //  Se la velocità è molto vicina a 0, impostarla direttamente a 0 (solo quando non è presente un'accelerazione)
+    if (abs(player->getSpeed().x) <= 0.1f && player->getAcceleration().x == 0)
+        player->setSpeed(sf::Vector2f(0.f, player->getSpeed().y));
+    if (abs(player->getSpeed().y) <= 0.1f && player->getAcceleration().y == 0)
+        player->setSpeed(sf::Vector2f(player->getSpeed().x, 0.f));
+
+    //  Inerzia
+    player->setSpeed(player->getSpeed() + GameUtils::scalare(player->getAcceleration(), delta_time.asSeconds())); // v = v + (a * dt)
+
+    //  Controllo velocità orizzontale massima
+    if (player->getSpeed().x >= PLAYER_MAX_VH)
+        player->setSpeed(sf::Vector2f(PLAYER_MAX_VH, player->getSpeed().y));
+    else if (player->getSpeed().x <= -PLAYER_MAX_VH)
+        player->setSpeed(sf::Vector2f(-PLAYER_MAX_VH, player->getSpeed().y));
+
+    // Update Posizioni e controllo collisioni
+    sf::Vector2f next_player_pos(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
+    player->setCoordinates(next_player_pos);
+
 }
 
 //Render
