@@ -3,8 +3,8 @@
 class Player
 {
 private:
-    sf::Vector2f coordinates;
-    sf::Vector2f dimensions;
+    sf::Vector2f position;
+    sf::Vector2f size;
     sf::RectangleShape shape;
 
     sf::Vector2f speed;
@@ -12,8 +12,8 @@ private:
 
 public:
     //Getters
-    sf::Vector2f getCoordinates();
-    sf::Vector2f getDimensions();
+    sf::Vector2f getPosition();
+    sf::Vector2f getSize();
     sf::RectangleShape getShape();
 
     sf::Vector2f getSpeed();

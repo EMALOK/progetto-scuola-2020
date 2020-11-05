@@ -2,14 +2,14 @@
 
 //Getters
 
-sf::Vector2f Player::getCoordinates()
+sf::Vector2f Player::getPosition()
 {
-    return coordinates;
+    return position;
 }
 
-sf::Vector2f Player::getDimensions()
+sf::Vector2f Player::getSize()
 {
-    return dimensions;
+    return size;
 }
 
 sf::Vector2f Player::getSpeed()
@@ -29,14 +29,14 @@ sf::RectangleShape Player::getShape()
 
 //Setters
 
-void Player::setCoordinates(sf::Vector2f coordinates)
+void Player::setCoordinates(sf::Vector2f position)
 {
-    this->coordinates = coordinates;
+    this->position = position;
 }
 
-void Player::setDimensions(sf::Vector2f dimensions)
+void Player::setDimensions(sf::Vector2f size)
 {
-    this->dimensions = dimensions;
+    this->size = size;
 }
 
 void Player::setSpeed(sf::Vector2f speed)
@@ -51,17 +51,22 @@ void Player::setAcceleration(sf::Vector2f acceleration)
 
 void Player::reloadShape()
 {
-    shape.setPosition(coordinates);
-    shape.setSize(dimensions);
+    shape.setPosition(position);
+    shape.setSize(size);
     shape.setFillColor(sf::Color(0, 255, 0, 255) /*verde*/);
 }
 
 //Costruttore e distruttore
 
-Player::Player(sf::Vector2f coordinates, sf::Vector2f dimensions)
+/** Oggetto del player
+ * 
+ * @param position Coordinate del player
+ * @param size Dimensioni del player
+ */
+Player::Player(sf::Vector2f position, sf::Vector2f size)
 {
-    this->coordinates = coordinates;
-    this->dimensions = dimensions;
+    this->position = position;
+    this->size = size;
     reloadShape();
 }
 

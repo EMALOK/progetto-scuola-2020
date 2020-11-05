@@ -73,29 +73,28 @@ void Game::update(sf::Time delta_time)
         player->setSpeed(sf::Vector2f(-PLAYER_MAX_VH, player->getSpeed().y));
 
     // Update Posizioni e controllo collisioni
-    sf::Vector2f next_player_pos(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
+    sf::Vector2f next_player_pos(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
     
     // Controllo collisioni
-    bool move = true;
     for (auto currSO : solidObjects)
     {
         //controllo asse x
-        if (GameUtils::colliding(currSO.getCoordinates(), currSO.getDimensions(), sf::Vector2f(next_player_pos.x, player->getCoordinates().y), player->getDimensions()))
+        if (GameUtils::colliding(currSO.getPosition(), currSO.getSize(), sf::Vector2f(next_player_pos.x, player->getPosition().y), player->getSize()))
         {
             player->setSpeed(sf::Vector2f(0, player->getSpeed().y));
         }
         //controllo asse y
-        if (GameUtils::colliding(currSO.getCoordinates(), currSO.getDimensions(), sf::Vector2f(player->getCoordinates().x, next_player_pos.y), player->getDimensions()))
+        if (GameUtils::colliding(currSO.getPosition(), currSO.getSize(), sf::Vector2f(player->getPosition().x, next_player_pos.y), player->getSize()))
         {
             player->setSpeed(sf::Vector2f(player->getSpeed().x, 0));
         }
     }
 
-    next_player_pos = sf::Vector2f(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
-    
-    if (move) {
-        player->setCoordinates(next_player_pos);
-    }
+    //ricalcolo nuova posizione dopo controllo collisioni
+    next_player_pos = sf::Vector2f(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
+
+    //posizione finale
+    player->setCoordinates(next_player_pos);
 }
 
 //Render
