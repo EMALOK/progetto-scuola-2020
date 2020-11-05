@@ -25,7 +25,15 @@ namespace GameUtils {
         return false;
     }
 
-    //controllo collisioni
+    /** Controllo collisioni
+     * 
+     * @param rect1_pos Posizione del primo rettangolo
+     * @param rect1_size Dimensioni del primo rettangolo
+     * @param rect2_pos Posizione del secondo rettangolo
+     * @param rect2_size Dimensioni del secondo rettangolo
+     * 
+     * @return vero se i due rettangoli stanno collidendo, altrimenti falso
+     */
     bool colliding(sf::Vector2f rect1_pos, sf::Vector2f rect1_size, sf::Vector2f rect2_pos, sf::Vector2f rect2_size)
     {
         if (rect1_pos.x + rect1_size.x >= rect2_pos.x &&

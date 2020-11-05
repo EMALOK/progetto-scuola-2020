@@ -40,7 +40,7 @@ void Game::update(sf::Time delta_time)
 
     /*  FISICA  */
     
-    /*  DEBUG   */
+    /*  DEBUG   */ /*
     std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
     std::cout << "vel.x " << player->getSpeed().x << " ";
@@ -71,8 +71,20 @@ void Game::update(sf::Time delta_time)
 
     // Update Posizioni e controllo collisioni
     sf::Vector2f next_player_pos(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
-    player->setCoordinates(next_player_pos);
+    
+    // TODO CONTROLLO COLLISIONI NON FUNZIONA
+    bool move = true;
+    for (auto currSO : solidObjects)
+    {
+        sf::Vector2f rect1_pos = currSO.getCoordinates();
+        sf::Vector2f rect1_size = currSO.getDimensions();
+        sf::Vector2f rect2_pos = player->getCoordinates();
+        sf::Vector2f rect2_size = player->getDimensions();
+    }
+    
 
+    if (move)
+        player->setCoordinates(next_player_pos);
 }
 
 //Render
