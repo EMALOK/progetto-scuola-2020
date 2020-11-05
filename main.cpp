@@ -14,7 +14,7 @@ int main()
     game.addSolidObject(ostacolo);
     
     //posizionamento player
-    game.getPlayer()->setCoordinates(sf::Vector2f(0, 800-40));
+    game.getPlayer()->setCoordinates(sf::Vector2f(0, 800-51));
     game.getPlayer()->setDimensions(sf::Vector2f(50, 50));
 
 

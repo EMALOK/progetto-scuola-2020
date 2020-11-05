@@ -71,32 +71,22 @@ void Game::update(sf::Time delta_time)
 
     // Update Posizioni e controllo collisioni
     sf::Vector2f next_player_pos(player->getCoordinates() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
+    
+    
+    
     // Controllo collisioni
+    bool move = true;
     for (auto currSO : solidObjects)
     {
         if (GameUtils::colliding(currSO.getCoordinates(), currSO.getDimensions(), next_player_pos, player->getDimensions()))
         {
-            //controllo collisione a destra
-            
-            //controllo collisione col lato inferiore
-            if (next_player_pos.y > currSO.getCoordinates().y) //py < blocco.y
-            {
-                std::cout << "sotto\n";
-                //py = ay + ah + 1
-                next_player_pos.y = currSO.getCoordinates().y + currSO.getDimensions().y + 1;
-            }
-            //controllo collisione col lato superiore del blocco
-            if (next_player_pos.y < currSO.getCoordinates().y) //py > blocco.y
-            {
-                std::cout << "sopra\n";
-                //py = ay - ph - 1
-                next_player_pos.y = currSO.getCoordinates().y - player->getDimensions().y - 1;
-            }
-            
+            move = false;
+            player->setSpeed(sf::Vector2f(0, 0));
         }
     }
     
-    player->setCoordinates(next_player_pos);
+    if (move)
+        player->setCoordinates(next_player_pos);
 }
 
 //Render
