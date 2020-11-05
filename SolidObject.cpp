@@ -27,6 +27,8 @@ bool SolidObject::operator==(const SolidObject &r)
 
 SolidObject::SolidObject(sf::Vector2f coordinates, sf::Vector2f dimensions)
 {
+    this->coordinates = coordinates;
+    this->dimensions = dimensions;
     shape.setPosition(coordinates);
     shape.setSize(dimensions);
     shape.setFillColor(sf::Color(255, 0, 0, 255) /*rosso*/);
