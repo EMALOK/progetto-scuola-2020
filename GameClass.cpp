@@ -16,38 +16,53 @@ void Game::update(sf::Time delta_time)
 {
     pollEvents();
 
+    //se il delta time supera il mezzo secondo molto probabilmente significa che l'utente non aveva la finestra in focus
+    //quindi, reset del delta time per dare un effetto di pausa
+    if (delta_time.asSeconds() >= 0.5f)
+        delta_time = sf::seconds(0);
+
     //  Gravità
     if (abs(player->getAcceleration().y) <= 0.1f)
         player->setAcceleration(sf::Vector2f(player->getAcceleration().x, GRAVITY));
 
     /*  CONTROLLO TASTI MOVIMENTO   */
 
+    bool left_control = false;
+    bool right_control = false;
+    bool jump_control = false;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        left_control = true;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        right_control = true;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        jump_control = true;
+
     //destra
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    if (right_control)
     {
         player->setAcceleration(sf::Vector2f(A_SPEED, player->getAcceleration().y));
     }
-    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) //se destra e sinistra non sono premuti
+    else if (!left_control) //se destra e sinistra non sono premuti
     {
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
     
     //sinistra
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if (left_control)
     {
         player->setAcceleration(sf::Vector2f(-A_SPEED, player->getAcceleration().y));
     }
-    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) //se destra e sinistra non sono premuti
+    else if (!right_control) //se destra e sinistra non sono premuti
     {
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
 
-    //alto
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    //salto
+    if (jump_control)
     {
         //controllo se è possibile saltare
         if (player->getSpeed().y == 0) {
-            player->setSpeed(sf::Vector2f(player->getSpeed().x, INITIAL_JUMP_V));
+            player->setSpeed(sf::Vector2f(player->getSpeed().x, INITIAL_JUMP_V)); //salto
         }
     }
 
