@@ -18,6 +18,13 @@ namespace GameUtils {
         return v;
     }
 
+    /** Controllo se due numeri sono discordi
+     * 
+     * @param a Numero a
+     * @param b Numero b
+     * 
+     * @return Vero se discordi, altrimenti falso
+     */
     bool discordi(float a, float b)
     {
         if ((a > 0 && b < 0) || (a < 0 && b > 0))

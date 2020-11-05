@@ -16,7 +16,8 @@ void Game::update(sf::Time delta_time)
     pollEvents();
 
     //  Gravità
-    player->setAcceleration(sf::Vector2f(player->getAcceleration().x, GRAVITY));
+    if (abs(player->getAcceleration().y) <= 0.1f)
+        player->setAcceleration(sf::Vector2f(player->getAcceleration().x, GRAVITY));
 
     /*  CONTROLLO TASTI MOVIMENTO   */
 
@@ -39,6 +40,7 @@ void Game::update(sf::Time delta_time)
     {
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
+    
     //alto
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
