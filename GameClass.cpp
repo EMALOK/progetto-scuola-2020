@@ -6,6 +6,7 @@
 #define A_SPEED 350 //accelerazione orizzontale
 #define PLAYER_MAX_VH 300 //velocita orizzontale massima del player
 #define GRAVITY 900 //gravità
+#define INITIAL_JUMP_V -1000 //velocità iniziale del salto
 
 //Funzioni
 
@@ -40,11 +41,14 @@ void Game::update(sf::Time delta_time)
     {
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
-    
+
     //alto
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        player->setAcceleration(sf::Vector2f(player->getAcceleration().x, -1000));
+        //controllo se è possibile saltare
+        if (player->getSpeed().y == 0) {
+            player->setSpeed(sf::Vector2f(player->getSpeed().x, INITIAL_JUMP_V));
+        }
     }
 
     /*  FISICA  */
