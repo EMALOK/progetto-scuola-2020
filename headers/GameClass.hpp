@@ -8,6 +8,7 @@ class Game
 private:
     //Variabili della finestra
     sf::RenderWindow *window; //oggetto della finestra (puntatore)
+    sf::View *view;
     sf::VideoMode videomode;
     sf::Event event;
 

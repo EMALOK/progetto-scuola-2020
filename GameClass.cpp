@@ -7,6 +7,10 @@
 #define PLAYER_MAX_VH 300 //velocita orizzontale massima del player
 #define GRAVITY 900 //gravità
 #define INITIAL_JUMP_V -1000 //velocità iniziale del salto
+#define WINDOW_WIDTH 1400 //larghezza della finestra
+#define WINDOW_HEIGHT 900 //altezza della finestra
+#define CAMERA_TRIGGER_X 500 //movimento necessario per far muovere la camera lungo l'asse x
+#define CAMERA_TRIGGER_Y 200 //movimento necessario per far muovere la camera lungo l'asse y
 
 //Funzioni
 
@@ -16,9 +20,10 @@ void Game::update(sf::Time delta_time)
 {
     pollEvents();
 
+
     //se il delta time supera il mezzo secondo molto probabilmente significa che l'utente non aveva la finestra in focus
     //quindi, reset del delta time per dare un effetto di pausa
-    if (delta_time.asSeconds() >= 0.5f)
+    if (delta_time.asSeconds() >= 0.4f)
         delta_time = sf::seconds(0);
 
     //  Gravità
@@ -119,6 +124,23 @@ void Game::update(sf::Time delta_time)
 
     //posizione finale
     player->setCoordinates(next_player_pos);
+    
+
+
+    //  Movimento camera
+    //view->setCenter(sf::Vector2f(player->getPosition().x + (player->getSize().x / 2), player->getPosition().y + (player->getSize().y / 2))); //la videocamera segue perfettamente il giocatore
+    //view->setRotation(view->getRotation() + (delta_time.asMilliseconds() * 0.1f)); // :)
+
+    if (player->getPosition().x < view->getCenter().x - CAMERA_TRIGGER_X) //player va a sinistra
+        view->move((player->getPosition().x) - (view->getCenter().x - CAMERA_TRIGGER_X), 0); //spostamento camera
+    if (player->getPosition().x + player->getSize().x > view->getCenter().x + CAMERA_TRIGGER_X) //player va a destra
+        view->move((player->getPosition().x + player->getSize().x) - (view->getCenter().x + CAMERA_TRIGGER_X), 0); //spostamento camera
+    if (player->getPosition().y < view->getCenter().y - CAMERA_TRIGGER_Y) //player va in alto
+        view->move(0, (player->getPosition().y) - (view->getCenter().y - CAMERA_TRIGGER_Y)); //spostamento camera
+    if (player->getPosition().y + player->getSize().y > view->getCenter().y + CAMERA_TRIGGER_Y) //player va in basso
+        view->move(0, (player->getPosition().y + player->getSize().y) - (view->getCenter().y + CAMERA_TRIGGER_Y)); //spostamento camera
+
+    window->setView(*view);
 }
 
 //Render
@@ -179,6 +201,7 @@ void Game::initVars()
 {
     //iniz. oggetto finestra
     window = nullptr;
+    view = new sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 
     //All'avvio del gioco il player sarà posizionato alle coordinate 0, 0 con grandezza 0, 0
     player = new Player(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
@@ -187,11 +210,13 @@ void Game::initVars()
 void Game::initWindow()
 {
     //grandezza della finestra impostata alla grandezza dello schermo
-    videomode.height = 900;
-    videomode.width = 1400;
+    videomode.height = WINDOW_HEIGHT;
+    videomode.width = WINDOW_WIDTH;
     
     //apri finestra del gioco
     window = new sf::RenderWindow(videomode, "Gioco", sf::Style::Close | sf::Style::Titlebar);
+    
+    window->setView(*view);
 
     window->setFramerateLimit(120);
 }
@@ -235,4 +260,5 @@ Game::~Game()
 {
     delete window;
     delete player;
+    delete view;
 }
