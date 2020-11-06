@@ -1,7 +1,6 @@
 #include "headers/GameClass.hpp"
 #include "headers/GameUtils.hpp"
-#include <math.h>
-#include <iostream> //debug 
+#include <iostream> //debug
 
 #define K_DEC 4.f //costante di decelerazione
 #define A_SPEED 450 //accelerazione orizzontale
@@ -17,6 +16,10 @@
 
 //Update
 
+/**
+ * Update della scena
+ * Questa funzione gestisce il funzionamento della fisica e della logica di gioco
+ */
 void Game::update(sf::Time delta_time)
 {
     pollEvents();
@@ -149,6 +152,9 @@ void Game::update(sf::Time delta_time)
 
 //Render
 
+/**
+ * Renderizzazione della scena
+ */
 void Game::render()
 {
     window->clear();
@@ -157,11 +163,12 @@ void Game::render()
     renderSolidObjects(); //render oggetti solidi
     renderPlayer(); //render player
 
-
-
     window->display();
 }
 
+/** 
+ * Renderizzazione di ogni oggetto solido presente nel livello
+ */
 void Game::renderSolidObjects()
 {
     for (auto currSO : solidObjects)
@@ -170,18 +177,29 @@ void Game::renderSolidObjects()
     }
 }
 
+/**
+ * Renderizzazione del giocatore
+ */
 void Game::renderPlayer()
 {
     player->render(window);
 }
 
-//Window functions
+//Funzioni della finestra
 
+/**
+ * Controllo della finestra
+ * 
+ * @return Vero se la finestra è aperta, altrimenti falso
+ */
 bool Game::isGameOpen()
 {
     return window->isOpen();
 }
 
+/**
+ * Processa gli eventi della finestra
+ */
 void Game::pollEvents()
 {
     while(window->pollEvent(event))
@@ -200,6 +218,9 @@ void Game::pollEvents()
     }
 }
 
+/**
+ * Inizializzazione delle variabili 
+ */
 void Game::initVars()
 {
     //iniz. oggetto finestra
@@ -210,6 +231,9 @@ void Game::initVars()
     player = new Player(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
 }
 
+/**
+ * Inizializzazione della finestra
+ */
 void Game::initWindow()
 {
     //grandezza della finestra impostata alla grandezza dello schermo
@@ -226,11 +250,21 @@ void Game::initWindow()
 
 //Solid Objects
 
+/**
+ * Aggiunge un oggetto solido alla scena
+ * 
+ * @param solidObject Oggetto solido da aggiungere alla scena
+ */
 void Game::addSolidObject(SolidObject solidObject)
 {
     solidObjects.push_back(solidObject);
 }
 
+/**
+ * Rimuove un oggetto solido alla scena
+ * 
+ * @param solidObject Oggetto solido da rimuovere alla scena
+ */
 void Game::removeSolidObject(SolidObject solidObject)
 {
     int index = 0;
@@ -246,6 +280,11 @@ void Game::removeSolidObject(SolidObject solidObject)
 
 // Player
 
+/**
+ * Funzione per ottenere il player
+ * 
+ * @return Puntatore all'oggetto del player
+ */
 Player *Game::getPlayer()
 {
     return player;
