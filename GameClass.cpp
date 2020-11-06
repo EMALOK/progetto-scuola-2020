@@ -75,10 +75,10 @@ void Game::update(sf::Time delta_time)
     /*  FISICA  */
     
     //  DEBUG
-    std::cout << "acc.x " << player->getAcceleration().x << " ";
+    /*std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
     std::cout << "vel.x " << player->getSpeed().x << " ";
-    std::cout << "vel.y " << player->getSpeed().y << "\n";
+    std::cout << "vel.y " << player->getSpeed().y << "\n";*/
 
     //  Decelerazioni per attrito
     //quando l'accelerazione è uguale a 0 -> applica attrito
@@ -172,8 +172,7 @@ void Game::renderSolidObjects()
 
 void Game::renderPlayer()
 {
-    player->reloadShape();
-    window->draw(player->getShape());
+    player->render(window);
 }
 
 //Window functions

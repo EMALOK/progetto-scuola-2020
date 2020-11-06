@@ -1,4 +1,5 @@
 #include "headers/Player.hpp"
+#include <iostream>
 
 //Getters
 
@@ -49,11 +50,26 @@ void Player::setAcceleration(sf::Vector2f acceleration)
     this->acceleration = acceleration;
 }
 
+void Player::setTexture(std::string path)
+{
+    texture.loadFromFile(path);
+}
+
+//Rendering
+
 void Player::reloadShape()
 {
     shape.setPosition(position);
     shape.setSize(size);
-    shape.setFillColor(sf::Color(0, 255, 0, 255) /*verde*/);
+}
+
+void Player::render(sf::RenderWindow* window)
+{
+    reloadShape();
+
+    shape.setTexture(&texture);
+
+    window->draw(shape);
 }
 
 //Costruttore e distruttore
@@ -67,6 +83,7 @@ Player::Player(sf::Vector2f position, sf::Vector2f size)
 {
     this->position = position;
     this->size = size;
+
     reloadShape();
 }
 

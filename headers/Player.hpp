@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Player
 {
@@ -9,6 +10,8 @@ private:
 
     sf::Vector2f speed;
     sf::Vector2f acceleration;
+
+    sf::Texture texture;
 
 public:
     //Getters
@@ -26,9 +29,11 @@ public:
     void setSpeed(sf::Vector2f);
     void setAcceleration(sf::Vector2f);
 
+    void setTexture(std::string);
+
     //Update
-    void update(sf::Time);
     void reloadShape();
+    void render(sf::RenderWindow*);
 
     //Costruttori e distruttori
     Player(sf::Vector2f, sf::Vector2f);
