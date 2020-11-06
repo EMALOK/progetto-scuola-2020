@@ -7,7 +7,7 @@ CXX := g++
 
 .PHONY: clean
 
-all: Game
+all: Game clean
 
 $(ODIR)/%.o: %.cpp
 	$(CXX) $(SFMLARGS) -c $< -o $@
