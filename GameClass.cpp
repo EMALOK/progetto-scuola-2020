@@ -95,6 +95,7 @@ void Game::update(sf::Time delta_time)
     //  Inerzia
     player->setSpeed(player->getSpeed() + GameUtils::scalare(player->getAcceleration(), delta_time.asSeconds())); // v = v + (a * dt)
 
+    //CM EMA si portebbe usare un nuovo utils come int magnitidine(sf::Vect2f a) usando il torema di pitagora
     //  Controllo velocità orizzontale massima
     if (player->getSpeed().x >= PLAYER_MAX_VH)
         player->setSpeed(sf::Vector2f(PLAYER_MAX_VH, player->getSpeed().y));
