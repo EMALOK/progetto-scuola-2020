@@ -20,7 +20,7 @@ sf::RectangleShape SolidObject::getShape()
 //operatore ==
 bool SolidObject::operator==(const SolidObject &r)
 {
-    return position == r.position && size == r.position;
+    return position == r.position && size == r.size;
 }
 
 //costruttore e distruttore
