@@ -1,10 +1,11 @@
 #include "headers/GameClass.hpp"
 #include "headers/GameUtils.hpp"
+#include <math.h>
 #include <iostream> //debug 
 
 #define K_DEC 4.f //costante di decelerazione
-#define A_SPEED 350 //accelerazione orizzontale
-#define PLAYER_MAX_VH 300 //velocita orizzontale massima del player
+#define A_SPEED 450 //accelerazione orizzontale
+#define PLAYER_MAX_VH 400 //velocita orizzontale massima del player
 #define GRAVITY 900 //gravità
 #define INITIAL_JUMP_V -1000 //velocità iniziale del salto
 #define WINDOW_WIDTH 1400 //larghezza della finestra
@@ -97,6 +98,8 @@ void Game::update(sf::Time delta_time)
 
     //CM EMA si portebbe usare un nuovo utils come int magnitidine(sf::Vect2f a) usando il torema di pitagora
     //  Controllo velocità orizzontale massima
+    // if (GameUtils::getSquareMagnitude(   &(player->getSpeed())         ) > PLAYER_MAX_VH * PLAYER_MAX_VH)
+    //     player->setSpeed( GameUtils::setMagnitude(player->getSpeed(), PLAYER_MAX_VH) );
     if (player->getSpeed().x >= PLAYER_MAX_VH)
         player->setSpeed(sf::Vector2f(PLAYER_MAX_VH, player->getSpeed().y));
     else if (player->getSpeed().x <= -PLAYER_MAX_VH)

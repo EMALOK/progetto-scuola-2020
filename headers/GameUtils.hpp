@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <math.h>
 
 namespace GameUtils {
     float lerp1d(float a, float b, float k)
@@ -49,5 +50,25 @@ namespace GameUtils {
             rect1_pos.y <= rect2_pos.y + rect2_size.y)
             return true;
         return false;
+    }
+
+    float getSquareMagnitude(sf::Vector2f *v)
+    {
+        return (v->x * v->x) + (v->y * v->y);
+    }
+
+    float getMagnitude(sf::Vector2f *v)
+    {
+        return std::sqrt(getSquareMagnitude(v));
+    }
+
+    void setMagnitude(sf::Vector2f *v, float magnitude)
+    {
+        *v = scalare(scalare(*v, magnitude), 1.f/getMagnitude(v));
+    }
+
+    sf::Vector2f setMagnitude(sf::Vector2f v, float magnitude)
+    {
+        return scalare(scalare(v, magnitude), 1.f/getMagnitude(&v));
     }
 }
