@@ -16,12 +16,12 @@ private:
     sf::Time animation_time_offset;
 
 public:
-    //  Getter
+    //  Getters
 
     sf::Vector2f getPosition();
     sf::Vector2f getSize();
 
-    //  Setter
+    //  Setters
 
     void setPosition(sf::Vector2f);
     void setSize(sf::Vector2f);

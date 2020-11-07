@@ -1,18 +1,33 @@
 #include <SFML/Graphics.hpp>
 #include <math.h>
 
+/**
+ * Funzioni di utilità generale
+ */
 namespace GameUtils {
 
     /** 
-     * Interpolazione lineare di due numeri
+     * Interpolazione lineare di due valori
+     * 
+     * @param a Valore di partenza, ritornato con k = 0
+     * @param b Valore di fine, ritornato con k = 1
+     * @param k Valore utilizzato per l'interpolazione
+     * 
+     * @return Interpolazione lineare di a e b con interpolante k
      */
     float lerp1d(float a, float b, float k)
     {
         return (1 - k) * a + k * b;
     }
 
-    /**
-     * Interpolazione lineare di due vettori
+    /** 
+     * Interpolazione lineare di due vettori 2d
+     * 
+     * @param a Valore di partenza, ritornato con k = 0
+     * @param b Valore di fine, ritornato con k = 1
+     * @param k Valore utilizzato per l'interpolazione
+     * 
+     * @return Interpolazione lineare di a e b con interpolante k
      */
     sf::Vector2f lerp2d(sf::Vector2f a, sf::Vector2f b, float k)
     {
@@ -29,10 +44,10 @@ namespace GameUtils {
         return v;
     }
 
-    /** Controllo se due numeri sono discordi
+    /** Controllo se due valori sono discordi
      * 
-     * @param a Numero a
-     * @param b Numero b
+     * @param a Valore a
+     * @param b Valore b
      * 
      * @return Vero se discordi, altrimenti falso
      */

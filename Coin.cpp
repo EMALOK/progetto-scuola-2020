@@ -1,6 +1,6 @@
 #include "headers/Coin.hpp"
 
-//  Getter
+//  Getters
 
 /**
  * Restituisce una copia della posizione della moneta
@@ -22,7 +22,7 @@ sf::Vector2f Coin::getSize()
     return this->shape.getSize();
 }
 
-//  Setter
+//  Setters
 
 /**
  * Imposta la nuova posizione della moneta. 

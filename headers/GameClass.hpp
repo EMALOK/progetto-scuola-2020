@@ -7,41 +7,50 @@
 class Game
 {
 private:
-    //Variabili della finestra
+    //  Variabili della finestra
     sf::RenderWindow *window; //oggetto della finestra (puntatore)
     sf::View *view;
     sf::VideoMode videomode;
     sf::Event event;
 
-    //Variabili di gioco
-    std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nel mondo
-    std::vector<Coin> coins;
+    //  Variabili di gioco
+    std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nella scena
+    std::vector<Coin> coins; //Monete presenti nella scena
     Player *player; //Puntatore al player
 
-    //funzioni private
+    //  Inizializzazioni
     void initVars();
     void initWindow();
 
+    //  Rendering
     void renderSolidObjects();
-    void renderPlayer();
     void renderCoins();
+    void renderPlayer();
 
 public:
-    //costruttore e distruttore
-    Game();
-    ~Game();
     
-    //funzioni
+    //  Update e Render
     void update(sf::Time);
     void render();
 
+    //  Funzioni per la finestra
     bool isGameOpen();
     void pollEvents();
 
+    //  Controllo degli oggetti nella scena
+
+    //SolidObject
     void addSolidObject(SolidObject);
     void removeSolidObject(SolidObject);
+    void clearSolidObjects();
+    //Coin
     void addCoin(Coin);
     void removeCoin(Coin);
+    void clearCoins();
 
     Player *getPlayer();
+
+    //  Costruttore e Distruttore
+    Game();
+    ~Game();
 };

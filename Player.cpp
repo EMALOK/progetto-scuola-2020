@@ -1,6 +1,6 @@
 #include "headers/Player.hpp"
 
-//Getters
+//  Getters
 
 sf::Vector2f Player::getPosition()
 {
@@ -27,7 +27,7 @@ sf::RectangleShape Player::getShape()
     return shape;
 }
 
-//Setters
+//  Setters
 
 void Player::setCoordinates(sf::Vector2f position)
 {
@@ -54,7 +54,7 @@ void Player::setTexture(sf::String path)
     texture.loadFromFile(path);
 }
 
-//Rendering
+//  Rendering
 
 void Player::reloadShape()
 {
@@ -71,7 +71,7 @@ void Player::render(sf::RenderWindow* window)
     window->draw(shape);
 }
 
-//Costruttore e distruttore
+//  Costruttore e distruttore
 
 /** Oggetto del player
  * 

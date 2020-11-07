@@ -46,7 +46,7 @@ void Game::update(sf::Time delta_time)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         jump_control = true;
 
-    //destra
+    //  Destra
     if (right_control)
     {
         player->setAcceleration(sf::Vector2f(A_SPEED, player->getAcceleration().y));
@@ -56,7 +56,7 @@ void Game::update(sf::Time delta_time)
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
     
-    //sinistra
+    //  Sinistra
     if (left_control)
     {
         player->setAcceleration(sf::Vector2f(-A_SPEED, player->getAcceleration().y));
@@ -66,7 +66,7 @@ void Game::update(sf::Time delta_time)
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
 
-    //salto
+    //  Salto
     if (jump_control)
     {
         //controllo se è possibile saltare
@@ -77,7 +77,7 @@ void Game::update(sf::Time delta_time)
 
     /*  FISICA  */
     
-    //  DEBUG
+    //  DEBUG FISICA
     /*std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
     std::cout << "vel.x " << player->getSpeed().x << " ";
@@ -100,18 +100,20 @@ void Game::update(sf::Time delta_time)
     player->setSpeed(player->getSpeed() + GameUtils::scalare(player->getAcceleration(), delta_time.asSeconds())); // v = v + (a * dt)
 
     //CM EMA si portebbe usare un nuovo utils come int magnitidine(sf::Vect2f a) usando il torema di pitagora
-    //  Controllo velocità orizzontale massima
+    // \/  non funziona correttamente \/
     // if (GameUtils::getSquareMagnitude(   &(player->getSpeed())         ) > PLAYER_MAX_VH * PLAYER_MAX_VH)
     //     player->setSpeed( GameUtils::setMagnitude(player->getSpeed(), PLAYER_MAX_VH) );
+    
+    //  Controllo velocità orizzontale massima
     if (player->getSpeed().x >= PLAYER_MAX_VH)
         player->setSpeed(sf::Vector2f(PLAYER_MAX_VH, player->getSpeed().y));
     else if (player->getSpeed().x <= -PLAYER_MAX_VH)
         player->setSpeed(sf::Vector2f(-PLAYER_MAX_VH, player->getSpeed().y));
 
-    // Update Posizioni e controllo collisioni
+    //  Update Posizioni e controllo collisioni
     sf::Vector2f next_player_pos(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
     
-    // Controllo collisioni
+    //  Controllo collisioni
     for (int i = 0; i < this->solidObjects.size(); ++i)
     {
         //controllo asse x
@@ -126,15 +128,16 @@ void Game::update(sf::Time delta_time)
         }
     }
 
-    //ricalcolo nuova posizione dopo controllo collisioni
+    //  Ricalcolo nuova posizione dopo controllo collisioni
     next_player_pos = sf::Vector2f(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
 
-    //posizione finale
+    //  Movimento alla posizione finale
     player->setCoordinates(next_player_pos);
     
 
 
-    //  Movimento camera
+    /*  MOVIMENTO CAMERA  */
+
     //view->setCenter(sf::Vector2f(player->getPosition().x + (player->getSize().x / 2), player->getPosition().y + (player->getSize().y / 2))); //la videocamera segue perfettamente il giocatore
     //view->setRotation(view->getRotation() + (delta_time.asMilliseconds() * 0.1f)); // :)
 
@@ -149,8 +152,9 @@ void Game::update(sf::Time delta_time)
 
     window->setView(*view);
 
-    //update monete
+    /*  UPDATE OGGETTI IN SCENA */
     
+    //  Update monete
     for (int i = 0; i < coins.size(); ++i)
         coins[i].update(delta_time);
 }

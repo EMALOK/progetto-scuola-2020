@@ -13,7 +13,8 @@ private:
     sf::Texture texture;
 
 public:
-    //Getters
+    //  Getters
+
     sf::Vector2f getPosition();
     sf::Vector2f getSize();
     sf::RectangleShape getShape();
@@ -21,7 +22,8 @@ public:
     sf::Vector2f getSpeed();
     sf::Vector2f getAcceleration();
 
-    //Setters
+    //  Setters
+
     void setCoordinates(sf::Vector2f);
     void setDimensions(sf::Vector2f);
 
@@ -30,11 +32,13 @@ public:
 
     void setTexture(sf::String);
 
-    //Update
+    //  Rendering
+
     void reloadShape();
     void render(sf::RenderWindow*);
 
-    //Costruttori e distruttori
+    //  Costruttore e distruttore
+
     Player(sf::Vector2f, sf::Vector2f);
     ~Player();
 };
