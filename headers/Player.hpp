@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <string>
 
 class Player
 {
@@ -29,7 +28,7 @@ public:
     void setSpeed(sf::Vector2f);
     void setAcceleration(sf::Vector2f);
 
-    void setTexture(std::string);
+    void setTexture(sf::String);
 
     //Update
     void reloadShape();

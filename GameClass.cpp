@@ -112,15 +112,15 @@ void Game::update(sf::Time delta_time)
     sf::Vector2f next_player_pos(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
     
     // Controllo collisioni
-    for (auto currSO : solidObjects)
+    for (int i = 0; i < this->solidObjects.size(); ++i)
     {
         //controllo asse x
-        if (GameUtils::colliding(currSO.getPosition(), currSO.getSize(), sf::Vector2f(next_player_pos.x, player->getPosition().y), player->getSize()))
+        if (GameUtils::colliding(this->solidObjects[i].getPosition(), this->solidObjects[i].getSize(), sf::Vector2f(next_player_pos.x, player->getPosition().y), player->getSize()))
         {
             player->setSpeed(sf::Vector2f(0, player->getSpeed().y));
         }
         //controllo asse y
-        if (GameUtils::colliding(currSO.getPosition(), currSO.getSize(), sf::Vector2f(player->getPosition().x, next_player_pos.y), player->getSize()))
+        if (GameUtils::colliding(this->solidObjects[i].getPosition(), this->solidObjects[i].getSize(), sf::Vector2f(player->getPosition().x, next_player_pos.y), player->getSize()))
         {
             player->setSpeed(sf::Vector2f(player->getSpeed().x, 0));
         }
@@ -148,6 +148,11 @@ void Game::update(sf::Time delta_time)
         view->move(0, (player->getPosition().y + player->getSize().y) - (view->getCenter().y + CAMERA_TRIGGER_Y)); //spostamento camera
 
     window->setView(*view);
+
+    //update monete
+    
+    for (int i = 0; i < coins.size(); ++i)
+        coins[i].update(delta_time);
 }
 
 //Render
@@ -160,6 +165,7 @@ void Game::render()
     window->clear();
 
     //DRAW
+    renderCoins(); //render delle monete
     renderSolidObjects(); //render oggetti solidi
     renderPlayer(); //render player
 
@@ -171,9 +177,9 @@ void Game::render()
  */
 void Game::renderSolidObjects()
 {
-    for (auto currSO : solidObjects)
+    for (int i = 0; i < solidObjects.size(); ++i)
     {
-        window->draw(currSO.getShape());
+        window->draw(this->solidObjects[i].getShape());
     }
 }
 
@@ -183,6 +189,17 @@ void Game::renderSolidObjects()
 void Game::renderPlayer()
 {
     player->render(window);
+}
+
+/**
+ * Renderizza le monete nella scena
+ */
+void Game::renderCoins()
+{
+    for (int i = 0; i < coins.size(); ++i)
+    {
+        this->coins[i].render(window);
+    }
 }
 
 //Funzioni della finestra
@@ -245,7 +262,7 @@ void Game::initWindow()
     
     window->setView(*view);
 
-    window->setFramerateLimit(120);
+    window->setFramerateLimit(60);
 }
 
 //Solid Objects
@@ -267,14 +284,40 @@ void Game::addSolidObject(SolidObject solidObject)
  */
 void Game::removeSolidObject(SolidObject solidObject)
 {
-    int index = 0;
-    for (auto currSO : solidObjects)
+    for (int i = 0; i < this->solidObjects.size(); ++i)
     {
-        if (currSO == solidObject)
+        if (this->solidObjects[i] == solidObject)
         {
-            solidObjects.erase(solidObjects.begin() + index);
+            this->solidObjects.erase(this->solidObjects.begin() + i);
         }
-        index++;
+    }
+}
+
+//  Coins
+
+/**
+ * Aggiunge una moneta alla scena
+ * 
+ * @param coin Moneta da aggiungere alla scena
+ */
+void Game::addCoin(Coin coin)
+{
+    this->coins.push_back(coin);
+}
+
+/**
+ * Rimuove una moneta alla scena
+ * 
+ * @param coin Moneta da rimuovere alla scena
+ */
+void Game::removeCoin(Coin coin)
+{
+    for (int i = 0; i < coins.size(); ++i)
+    {
+        if (this->coins[i] == coin)
+        {
+            this->coins.erase(this->coins.begin() + i);
+        }
     }
 }
 

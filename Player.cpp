@@ -1,5 +1,4 @@
 #include "headers/Player.hpp"
-#include <iostream>
 
 //Getters
 
@@ -50,7 +49,7 @@ void Player::setAcceleration(sf::Vector2f acceleration)
     this->acceleration = acceleration;
 }
 
-void Player::setTexture(std::string path)
+void Player::setTexture(sf::String path)
 {
     texture.loadFromFile(path);
 }
