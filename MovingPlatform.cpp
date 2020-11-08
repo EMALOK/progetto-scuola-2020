@@ -1,5 +1,4 @@
 #include "headers/MovingPlatform.hpp"
-#include "headers/GameUtils.hpp"
 
 //  Getters
 

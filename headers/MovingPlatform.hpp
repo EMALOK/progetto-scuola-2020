@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "GameUtils.hpp"
 
 class MovingPlatform
 {
