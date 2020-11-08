@@ -13,7 +13,7 @@
 #define CAMERA_TRIGGER_X 500 //movimento necessario per far muovere la camera lungo l'asse x
 #define CAMERA_TRIGGER_Y 200 //movimento necessario per far muovere la camera lungo l'asse y
 #define PUNTEGGIO_OFF_X 30 //distanza dal bordo a destra
-#define PUNTEGGIO_OFF_Y 20 //distanza dal bordo in alto
+#define PUNTEGGIO_OFF_Y 20 //distanza dal bordo in alto 
 
 //Funzioni
 
