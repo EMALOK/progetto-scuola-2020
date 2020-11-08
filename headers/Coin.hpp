@@ -15,11 +15,14 @@ private:
     float animation_speed;
     sf::Time animation_time_offset;
 
+    int points;
 public:
     //  Getters
 
     sf::Vector2f getPosition();
     sf::Vector2f getSize();
+
+    int getPoints();
 
     //  Setters
 
@@ -38,6 +41,6 @@ public:
 
     //  Costruttore e Distruttore
 
-    Coin(sf::Vector2f, sf::Vector2f, sf::String, float, float, sf::Time);
+    Coin(sf::Vector2f, sf::Vector2f, sf::String, float, float, sf::Time, int);
     ~Coin();
 };

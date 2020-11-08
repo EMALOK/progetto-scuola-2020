@@ -22,6 +22,16 @@ sf::Vector2f Coin::getSize()
     return this->shape.getSize();
 }
 
+/**
+ * Restituisce il valore della moneta 
+ * 
+ * @return Valore della moneta
+ */
+int Coin::getPoints()
+{
+    return this->points;
+}
+
 //  Setters
 
 /**
@@ -98,8 +108,9 @@ bool Coin::operator==(const Coin &r)
  * @param animation_height Altezza dell'animazione
  * @param animation_speed Velocità dell'animazione
  * @param animation_time_offset Offset temporale dell'animazione
+ * @param points Valore della moneta
  */
-Coin::Coin(sf::Vector2f position, sf::Vector2f size, sf::String texture_path, float animation_height, float animation_speed, sf::Time animation_time_offset)
+Coin::Coin(sf::Vector2f position, sf::Vector2f size, sf::String texture_path, float animation_height, float animation_speed, sf::Time animation_time_offset, int points)
 {
     this->shape = sf::RectangleShape(size);
     this->shape.setPosition(position);
@@ -110,6 +121,8 @@ Coin::Coin(sf::Vector2f position, sf::Vector2f size, sf::String texture_path, fl
     this->animation_height = animation_height;
     this->animation_speed = animation_speed;
     this->animation_time_offset = animation_time_offset;
+
+    this->points = points;
 }
 
 Coin::~Coin()

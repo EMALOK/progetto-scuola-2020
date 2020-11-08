@@ -12,6 +12,7 @@ private:
     sf::View *view;
     sf::VideoMode videomode;
     sf::Event event;
+    sf::Font font; //font utilizzato nel gioco
 
     //  Variabili di gioco
     std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nella scena
@@ -26,6 +27,7 @@ private:
     void renderSolidObjects();
     void renderCoins();
     void renderPlayer();
+    void renderOverlay();
 
 public:
     

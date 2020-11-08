@@ -1,6 +1,7 @@
 #include "headers/GameClass.hpp"
 #include "headers/GameUtils.hpp"
 #include <iostream> //debug
+#include <string>
 
 #define K_DEC 4.f //costante di decelerazione
 #define A_SPEED 450 //accelerazione orizzontale
@@ -11,6 +12,8 @@
 #define WINDOW_HEIGHT 900 //altezza della finestra
 #define CAMERA_TRIGGER_X 500 //movimento necessario per far muovere la camera lungo l'asse x
 #define CAMERA_TRIGGER_Y 200 //movimento necessario per far muovere la camera lungo l'asse y
+#define PUNTEGGIO_OFF_X 30 //distanza dal bordo a destra
+#define PUNTEGGIO_OFF_Y 20 //distanza dal bordo in alto
 
 //Funzioni
 
@@ -156,7 +159,17 @@ void Game::update(sf::Time delta_time)
     
     //  Update monete
     for (int i = 0; i < coins.size(); ++i)
-        coins[i].update(delta_time);
+        this->coins[i].update(delta_time);
+
+    // Controllo collisioni monete
+    for (int i = 0; i < this->coins.size(); ++i)
+    {
+        if (GameUtils::colliding(this->player->getPosition(), this->player->getSize(), this->coins[i].getPosition(), this->coins[i].getSize()))
+        {
+            this->player->addPoints(this->coins[i].getPoints());
+            removeCoin(coins[i]);
+        }
+    }
 }
 
 //Render
@@ -172,6 +185,8 @@ void Game::render()
     renderCoins(); //render delle monete
     renderSolidObjects(); //render oggetti solidi
     renderPlayer(); //render player
+
+    renderOverlay(); //render dell'overlay (statistiche, ecc...)
 
     window->display();
 }
@@ -204,6 +219,28 @@ void Game::renderCoins()
     {
         this->coins[i].render(window);
     }
+}
+
+/**
+ * Renderizza l'overlay
+ */ 
+void Game::renderOverlay()
+{
+    sf::Text punteggio_text;
+    punteggio_text.setFont(this->font);
+
+    punteggio_text.setCharacterSize(40); //grandezza caratteri
+    punteggio_text.setFillColor(sf::Color::White); //colore
+
+    //stringa
+    punteggio_text.setString("Punteggio: " + std::to_string(this->player->getPoints()));
+
+    //posizione
+    float tx = view->getCenter().x + view->getSize().x/2 - PUNTEGGIO_OFF_X - punteggio_text.getLocalBounds().width;
+    float ty = view->getCenter().y - view->getSize().y/2 + PUNTEGGIO_OFF_Y;
+    punteggio_text.setPosition(tx, ty);
+
+    window->draw(punteggio_text);
 }
 
 //Funzioni della finestra
@@ -250,6 +287,9 @@ void Game::initVars()
 
     //All'avvio del gioco il player sarà posizionato alle coordinate 0, 0 con grandezza 0, 0
     player = new Player(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
+
+    //Caricamento del font
+    font.loadFromFile("./immagini/ThaleahFat_TTF.ttf");
 }
 
 /**

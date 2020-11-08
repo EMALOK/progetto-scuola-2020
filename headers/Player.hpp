@@ -12,6 +12,8 @@ private:
 
     sf::Texture texture;
 
+    int points = 0;
+
 public:
     //  Getters
 
@@ -22,6 +24,8 @@ public:
     sf::Vector2f getSpeed();
     sf::Vector2f getAcceleration();
 
+    int getPoints();
+
     //  Setters
 
     void setCoordinates(sf::Vector2f);
@@ -31,6 +35,9 @@ public:
     void setAcceleration(sf::Vector2f);
 
     void setTexture(sf::String);
+
+    void setPoints(int);
+    void addPoints(int);
 
     //  Rendering
 

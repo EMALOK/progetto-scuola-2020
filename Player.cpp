@@ -27,6 +27,16 @@ sf::RectangleShape Player::getShape()
     return shape;
 }
 
+/**
+ * Restituisce il punteggio del giocatore
+ * 
+ * @return Punteggio del giocatore
+ */
+int Player::getPoints()
+{
+    return this->points;
+}
+
 //  Setters
 
 void Player::setCoordinates(sf::Vector2f position)
@@ -54,6 +64,26 @@ void Player::setTexture(sf::String path)
     texture.loadFromFile(path);
 }
 
+/**
+ * Imposta il punteggio del giocatore
+ * 
+ * @param points Nuovo punteggio
+ */
+void Player::setPoints(int points)
+{
+    this->points = points;
+}
+
+/**
+ * Incrementa il punteggio del giocatore
+ * 
+ * @param points Incremento del punteggio
+ */
+void Player::addPoints(int points)
+{
+    this->points += points;
+}
+
 //  Rendering
 
 void Player::reloadShape()
@@ -73,7 +103,7 @@ void Player::render(sf::RenderWindow* window)
 
 //  Costruttore e distruttore
 
-/** Oggetto del player
+/** Giocatore in scena
  * 
  * @param position Coordinate del player
  * @param size Dimensioni del player

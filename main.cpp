@@ -24,11 +24,11 @@ int main()
     game.getPlayer()->setTexture("./immagini/big-crate.png");
 
     //posizionamento moneta
-    Coin moneta = Coin(sf::Vector2f(200, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(0));
+    Coin moneta = Coin(sf::Vector2f(200, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(0), 10);
     game.addCoin(moneta);
-    Coin moneta2 = Coin(sf::Vector2f(250, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(1));
+    Coin moneta2 = Coin(sf::Vector2f(250, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(1), 20);
     game.addCoin(moneta2);
-    game.addCoin(Coin(sf::Vector2f(300, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(2)));
+    game.addCoin(Coin(sf::Vector2f(300, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(2), 30));
 
     //game loop
     sf::Clock clock; //start timer
