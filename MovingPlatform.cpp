@@ -1,4 +1,5 @@
 #include "headers/MovingPlatform.hpp"
+#include "headers/GameUtils.hpp"
 
 //  Getters
 
@@ -9,7 +10,7 @@
  */
 sf::Vector2f MovingPlatform::getStartingPosition()
 {
-    //  TODO
+    return this->starting_position;
 }
 
 /**
@@ -19,7 +20,7 @@ sf::Vector2f MovingPlatform::getStartingPosition()
  */
 sf::Vector2f MovingPlatform::getEndingPosition()
 {
-    //  TODO
+    return this->ending_position;
 }
 
 //  Update / Render
@@ -31,7 +32,9 @@ sf::Vector2f MovingPlatform::getEndingPosition()
  */
 void MovingPlatform::render(sf::RenderWindow* window)
 {
-    //  TODO
+    this->shape.setTexture(&texture);
+
+    window->draw(shape);
 }
 
 /**
@@ -41,7 +44,12 @@ void MovingPlatform::render(sf::RenderWindow* window)
  */
 void MovingPlatform::update(sf::Time delta_time)
 {
-    //  TODO
+    this->animation_timer += delta_time.asSeconds()*this->animation_speed; //time = time + delta_time
+
+    if (this->animation_timer > 4*std::acos(0.0)) //time > 2PI
+        animation_timer -= 4*std::acos(0.0); //time = time - 2PI
+
+    this->shape.setPosition(GameUtils::lerp2d(starting_position, ending_position, std::sin(animation_timer)));
 }
 
 //  Costruttore e Distruttore
@@ -58,7 +66,16 @@ void MovingPlatform::update(sf::Time delta_time)
  */
 MovingPlatform::MovingPlatform(sf::Vector2f starting_position, sf::Vector2f ending_position, sf::Vector2f size, sf::String texture_path, float animation_speed, sf::Time animation_time_offset)
 {
-    // TODO
+    this->shape = sf::RectangleShape(size);
+    this->shape.setPosition(starting_position);
+
+    this->starting_position = starting_position;
+    this->ending_position = ending_position;
+
+    this->texture.loadFromFile(texture_path);
+
+    this->animation_speed = animation_speed;
+    this->animation_time_offset = animation_time_offset;
 }
 
 /**
