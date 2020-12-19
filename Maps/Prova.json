@@ -1,0 +1,50 @@
+{
+    "pavimento":
+    {
+        "posx":-1000.0,
+        "posy":800,
+        "sizex":10000,
+        "sizey":100
+    },
+
+    "ostacolo":
+    {
+        "posx":700,
+        "posy":750,
+        "sizex":50,
+        "sizey":50
+    },
+
+    "secondoPiano":
+    {
+        "posx":10,
+        "posy":550,
+        "sizex":1000,
+        "sizey":50
+    },
+
+    "Monete":
+    {
+        "Moneta1":
+        {
+            "posx":200,
+            "posy":764,
+            "sizex":30,
+            "sizey":26
+        },
+        "Moneta2":
+        {
+            "posx":250,
+            "posy":764,
+            "sizex":30,
+            "sizey":26
+        },
+        "Moneta3":
+        {
+            "posx":300,
+            "posy":764,
+            "sizex":30,
+            "sizey":26
+        }
+    }
+}

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include "SolidObject.hpp"
 #include "Player.hpp"
@@ -27,13 +29,13 @@ private:
     void renderSolidObjects();
     void renderCoins();
     void renderPlayer();
-    void renderOverlay();
+    void renderOverlay(int BestScore);
 
 public:
     
     //  Update e Render
     void update(sf::Time);
-    void render();
+    void render(int BestScore);
 
     //  Funzioni per la finestra
     bool isGameOpen();
