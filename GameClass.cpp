@@ -1,5 +1,6 @@
 #include "headers/GameClass.hpp"
 #include "headers/GameUtils.hpp"
+#include "headers/extern.hpp"
 #include <iostream> //debug
 #include <string>
 
@@ -14,6 +15,8 @@
 #define CAMERA_TRIGGER_Y 200 //movimento necessario per far muovere la camera lungo l'asse y
 #define PUNTEGGIO_OFF_X 30 //distanza dal bordo a destra
 #define PUNTEGGIO_OFF_Y 20 //distanza dal bordo in alto
+
+int NewBestScore;
 
 //Funzioni
 
@@ -177,7 +180,7 @@ void Game::update(sf::Time delta_time)
 /**
  * Renderizzazione della scena
  */
-void Game::render()
+void Game::render(int BestScore)
 {
     window->clear();
 
@@ -186,7 +189,7 @@ void Game::render()
     renderSolidObjects(); //render oggetti solidi
     renderPlayer(); //render player
 
-    renderOverlay(); //render dell'overlay (statistiche, ecc...)
+    renderOverlay(BestScore); //render dell'overlay (statistiche, ecc...)
 
     window->display();
 }
@@ -224,23 +227,41 @@ void Game::renderCoins()
 /**
  * Renderizza l'overlay
  */ 
-void Game::renderOverlay()
+void Game::renderOverlay(int BestScore)
 {
     sf::Text punteggio_text;
     punteggio_text.setFont(this->font);
 
+    sf::Text Bestpunteggio_text;
+    Bestpunteggio_text.setFont(this->font);
+
     punteggio_text.setCharacterSize(40); //grandezza caratteri
     punteggio_text.setFillColor(sf::Color::White); //colore
 
+    Bestpunteggio_text.setCharacterSize(40); //grandezza caratteri
+    Bestpunteggio_text.setFillColor(sf::Color::White); //colore
+
     //stringa
     punteggio_text.setString("Punteggio: " + std::to_string(this->player->getPoints()));
+
+    if(BestScore >= this->player->getPoints()) Bestpunteggio_text.setString("Miglior Punteggio: " + std::to_string(BestScore));
+    else
+    {
+        NewBestScore = (this->player->getPoints());
+        Bestpunteggio_text.setString("Miglior Punteggio: " + std::to_string(NewBestScore));
+    }
 
     //posizione
     float tx = view->getCenter().x + view->getSize().x/2 - PUNTEGGIO_OFF_X - punteggio_text.getLocalBounds().width;
     float ty = view->getCenter().y - view->getSize().y/2 + PUNTEGGIO_OFF_Y;
     punteggio_text.setPosition(tx, ty);
 
+    float btx = view->getCenter().x + view->getSize().x/2 - (PUNTEGGIO_OFF_X * 2) - (punteggio_text.getLocalBounds().width + Bestpunteggio_text.getLocalBounds().width);
+    float bty = view->getCenter().y - view->getSize().y/2 + PUNTEGGIO_OFF_Y;
+    Bestpunteggio_text.setPosition(btx, bty);
+
     window->draw(punteggio_text);
+    window->draw(Bestpunteggio_text);
 }
 
 //Funzioni della finestra
@@ -270,7 +291,9 @@ void Game::pollEvents()
 
             case sf::Event::KeyPressed: //chiusura del gioco dal tasto Esc
                 if (event.key.code == sf::Keyboard::Escape)
+                {
                     window->close();
+                }
                 break;
         }
     }
