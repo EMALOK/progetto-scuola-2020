@@ -1,11 +1,11 @@
 #include "Button.hpp"
 #include "Textbox.hpp"
 #include <SFML/Graphics.hpp>
-#include <writer.h>
-#include <stringbuffer.h>
-#include <filereadstream.h>
-#include <filewritestream.h>
-#include <document.h>
+#include "rapidJson/writer.h"
+#include "rapidJson/stringbuffer.h"
+#include "rapidJson/filereadstream.h"
+#include "rapidJson/filewritestream.h"
+#include "rapidJson/document.h"
 #include <iostream>
 
 #define HEIGH 900

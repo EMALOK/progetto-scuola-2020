@@ -1,8 +1,8 @@
-#include <writer.h>
-#include <stringbuffer.h>
-#include <filereadstream.h>
-#include <filewritestream.h>
-#include <document.h>
+#include "rapidJson/writer.h"
+#include "rapidJson/stringbuffer.h"
+#include "rapidJson/filereadstream.h"
+#include "rapidJson/filewritestream.h"
+#include "rapidJson/document.h"
 #include <iostream>
 
 void ScoreUpdater(std::string Username, std::string Password, int NewBestScore)
