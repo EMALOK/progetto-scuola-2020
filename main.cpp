@@ -8,10 +8,12 @@ int main()
 {
 
     sf::Font arial;
-    arial.loadFromFile("C:/Users/super/AppData/Local/Roblox/Versions/version-63d5cf76777d4db4/content/fonts/arial.ttf");
+    if (!arial.loadFromFile("immagini/font/ThaleahFat.ttf")){
+        return EXIT_FAILURE;
+    }
 
     sf::Font ThaleahFat;
-    ThaleahFat.loadFromFile("C:/Users/super/Desktop/progetto-scuola-2020/immagini/ThaleahFat_TTF.ttf");
+    ThaleahFat.loadFromFile("immagini/font/ThaleahFat.ttf");
 
     startWindow(arial, ThaleahFat);
     if(ClosedWindow) return 0;
