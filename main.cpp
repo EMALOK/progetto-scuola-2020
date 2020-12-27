@@ -8,12 +8,15 @@ int main()
 {
 
     sf::Font arial;
-    if (!arial.loadFromFile("immagini/font/ThaleahFat.ttf")){
+    if (!arial.loadFromFile("immagini/font/arial.ttf")){
         return EXIT_FAILURE;
     }
 
     sf::Font ThaleahFat;
-    ThaleahFat.loadFromFile("immagini/font/ThaleahFat.ttf");
+    if(!ThaleahFat.loadFromFile("immagini/font/ThaleahFat.ttf"))
+    {
+        return EXIT_FAILURE;
+    }
 
     startWindow(arial, ThaleahFat);
     if(ClosedWindow) return 0;
