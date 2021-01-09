@@ -1,8 +1,8 @@
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system
 SFMLARGS=-I C:\SFML\include -L C:\SFML\lib
 ODIR = build
-OBJECTS=$(ODIR)/main.o $(ODIR)/GameClass.o $(ODIR)/SolidObject.o $(ODIR)/Player.o $(ODIR)/Coin.o
-TOERASE=$(ODIR)\main.o $(ODIR)\GameClass.o $(ODIR)\Game.o $(ODIR)\SolidObject.o $(ODIR)\Player.o $(ODIR)\Coin.o
+OBJECTS=$(ODIR)/main.o $(ODIR)/GameClass.o $(ODIR)/SolidObject.o $(ODIR)/Player.o $(ODIR)/Coin.o $(ODIR)/MovingPlatform.o $(ODIR)/GameUtils.o
+TOERASE=$(ODIR)\main.o $(ODIR)\GameClass.o $(ODIR)\Game.o $(ODIR)\SolidObject.o $(ODIR)\Player.o $(ODIR)\Coin.o $(ODIR)\MovingPlatform.o $(ODIR)\GameUtils.o
 CXX := g++
 
 .PHONY: clean
