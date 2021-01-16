@@ -60,3 +60,6 @@ void ScoreUpdater(std::string Username, std::string Password, int NewBestScore)
         }
     }
 }
+
+
+
