@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "GameUtils.hpp"
 
 class MovingPlatform
@@ -26,6 +25,8 @@ public:
     
     sf::Vector2f getStartingPosition();
     sf::Vector2f getEndingPosition();
+    sf::Vector2f getPosition();
+    sf::Vector2f getSize();
 
     //  Update / Render
 

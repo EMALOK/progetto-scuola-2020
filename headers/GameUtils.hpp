@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <math.h>
 
 namespace GameUtils
 {
@@ -12,6 +11,8 @@ namespace GameUtils
     bool discordi(float, float);
 
     bool colliding(sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f);
+
+    bool touching(sf::Vector2f, sf::Vector2f, sf::Vector2f, sf::Vector2f);
 
     float getSquareMagnitude(sf::Vector2f*);
 

@@ -1,4 +1,7 @@
 #include "headers/GameUtils.hpp"
+#include <math.h>
+
+using namespace std;
 
 /**
  * Funzioni di utilità generale
@@ -14,9 +17,11 @@ namespace GameUtils {
      * 
      * @return Interpolazione lineare di a e b con interpolante k
      */
-    float lerp1d(float a, float b, float k)
-    {
-        return (1 - k) * a + k * b;
+    float lerp1d(float a, float b, float t) {
+        if(a<=0 && b>=0 || a>=0 && b<=0) return t*b + (1-t)*a;
+        if(t==1) return b;
+        const float x = a + t*(b-a);
+        return t>1 == b>a ? max(b,x) : min(b,x);
     }
 
     /** 
@@ -74,6 +79,14 @@ namespace GameUtils {
             rect1_pos.y <= rect2_pos.y + rect2_size.y)
             return true;
         return false;
+    }
+
+    bool touching(sf::Vector2f rect1_pos, sf::Vector2f rect1_size, sf::Vector2f rect2_pos, sf::Vector2f rect2_size) {
+        if (rect1_pos.x > rect2_pos.x + rect2_size.x || rect2_pos.x > rect1_pos.x + rect1_size.x) return false;
+
+        if (rect1_pos.y > rect2_pos.y + rect2_size.y || rect2_pos.y > rect1_pos.y + rect1_size.y) return false;
+
+        return true;
     }
 
     /** 

@@ -30,6 +30,10 @@ int main()
     game.addCoin(moneta2);
     game.addCoin(Coin(sf::Vector2f(300, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(2), 30));
 
+    //piattaforma mobile
+    MovingPlatform mp = MovingPlatform(sf::Vector2f(800, 710), sf::Vector2f(1600, 710), sf::Vector2f(200, 30), "./immagini/platform-long.png", 1, sf::seconds(0));
+    game.addPlatform(mp);
+
     //game loop
     sf::Clock clock; //start timer
     while (game.isGameOpen())

@@ -1,8 +1,11 @@
-#include <SFML/Graphics.hpp>
+#include "MovingPlatform.hpp"
 #include "SolidObject.hpp"
+#include "GameUtils.hpp"
 #include "Player.hpp"
+#include <iostream>
 #include "Coin.hpp"
 #include <vector>
+#include <string>
 
 class Game
 {
@@ -17,6 +20,7 @@ private:
     //  Variabili di gioco
     std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nella scena
     std::vector<Coin> coins; //Monete presenti nella scena
+    std::vector<MovingPlatform> platforms; //Piattaforme mobili nella scena
     Player *player; //Puntatore al player
 
     //  Inizializzazioni
@@ -25,6 +29,7 @@ private:
 
     //  Rendering
     void renderSolidObjects();
+    void renderPlatforms();
     void renderCoins();
     void renderPlayer();
     void renderOverlay();
@@ -49,6 +54,10 @@ public:
     void addCoin(Coin);
     void removeCoin(Coin);
     void clearCoins();
+    //MovingPlatform
+    void addPlatform(MovingPlatform);
+    void removePlatform(MovingPlatform);
+    void clearPlatforms();
 
     Player *getPlayer();
 

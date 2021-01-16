@@ -1,7 +1,4 @@
 #include "headers/GameClass.hpp"
-#include "headers/GameUtils.hpp"
-#include <iostream> //debug
-#include <string>
 
 #define K_DEC 4.f //costante di decelerazione
 #define A_SPEED 450 //accelerazione orizzontale
@@ -131,6 +128,22 @@ void Game::update(sf::Time delta_time)
         }
     }
 
+    //  Fisica piattaforme
+    for (int i = 0; i < this->platforms.size(); ++i)
+    {
+        //TODO IMPLEMENTARE LA FISICA
+
+        sf::Vector2f delta_pos = this->platforms[i].getPosition();
+        this->platforms[i].update(delta_time);
+        delta_pos = this->platforms[i].getPosition() - delta_pos;
+
+        float vx = delta_pos.x / delta_time.asSeconds();
+        float vy = delta_pos.y / delta_time.asSeconds();
+        
+        
+    }
+
+
     //  Ricalcolo nuova posizione dopo controllo collisioni
     next_player_pos = sf::Vector2f(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
 
@@ -184,6 +197,7 @@ void Game::render()
     //DRAW
     renderCoins(); //render delle monete
     renderSolidObjects(); //render oggetti solidi
+    renderPlatforms(); //render piattaforme mobili
     renderPlayer(); //render player
 
     renderOverlay(); //render dell'overlay (statistiche, ecc...)
@@ -199,6 +213,17 @@ void Game::renderSolidObjects()
     for (int i = 0; i < solidObjects.size(); ++i)
     {
         window->draw(this->solidObjects[i].getShape());
+    }
+}
+
+/**
+ * 
+ */
+void Game::renderPlatforms()
+{
+    for (int i = 0; i < platforms.size(); ++i)
+    {
+        this->platforms[i].render(window);
     }
 }
 
@@ -309,7 +334,7 @@ void Game::initWindow()
     window->setFramerateLimit(60);
 }
 
-//Solid Objects
+//  Solid Objects
 
 /**
  * Aggiunge un oggetto solido alla scena
@@ -337,6 +362,14 @@ void Game::removeSolidObject(SolidObject solidObject)
     }
 }
 
+/**
+ * Rimuove tutti gli oggetti solidi dalla scena
+ */
+void Game::clearSolidObjects()
+{
+    this->solidObjects.clear();
+}
+
 //  Coins
 
 /**
@@ -350,9 +383,9 @@ void Game::addCoin(Coin coin)
 }
 
 /**
- * Rimuove una moneta alla scena
+ * Rimuove una moneta dalla scena
  * 
- * @param coin Moneta da rimuovere alla scena
+ * @param coin Moneta da rimuovere dalla scena
  */
 void Game::removeCoin(Coin coin)
 {
@@ -363,6 +396,44 @@ void Game::removeCoin(Coin coin)
             this->coins.erase(this->coins.begin() + i);
         }
     }
+}
+
+/**
+ * Rimuove tutte le monete dalla scena
+ */
+void Game::clearCoins()
+{
+    this->coins.clear();
+}
+
+//  Piattaforme mobili
+
+/**
+ * Aggiunge una piattaforma mobile alla scena
+ * 
+ * @param platform Piattaforma da aggiungere alla scena
+ */
+void Game::addPlatform(MovingPlatform platform)
+{
+    this->platforms.push_back(platform);
+}
+
+/**
+ * Rimuove una piattaforma mobile dalla scena
+ * 
+ * @param platform Piattaforma da rimuovere dalla scena
+ */
+void Game::removePlatform(MovingPlatform platform)
+{
+
+}
+
+/**
+ * Rimuove tutte le piattaforme mobili dalla scena
+ */
+void Game::clearPlatforms()
+{
+    this->platforms.clear();
 }
 
 // Player

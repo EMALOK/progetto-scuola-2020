@@ -10,14 +10,14 @@ CXX := g++
 all: Game clean
 
 $(ODIR)/%.o: %.cpp
-	$(CXX) $(SFMLARGS) -c $< -o $@
+	$(CXX) -c $< -o $@ $(SFMLARGS)
 
 $(ODIR)/%.o: %.hpp
-	$(CXX) $(SFMLARGS) -c $< -o $@
+	$(CXX) -c $< -o $@ $(SFMLARGS)
 
 Game: $(OBJECTS)
 	@echo "** Building..."
-	$(CXX) $(SFMLARGS) -o $(ODIR)/Game $(OBJECTS) $(LIBS)
+	$(CXX) -o $(ODIR)/Game $(OBJECTS) $(LIBS) $(SFMLARGS)
 
 clean:
 	-erase /S $(TOERASE)
