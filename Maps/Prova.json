@@ -1,50 +1,38 @@
 {
-    "pavimento":
-    {
-        "posx":-1000.0,
-        "posy":800,
-        "sizex":10000,
-        "sizey":100
-    },
-
-    "ostacolo":
-    {
-        "posx":700,
-        "posy":750,
-        "sizex":50,
-        "sizey":50
-    },
-
-    "secondoPiano":
-    {
-        "posx":10,
-        "posy":550,
-        "sizex":1000,
-        "sizey":50
-    },
-
-    "Monete":
-    {
-        "Moneta1":
+    "blocchi":
+    [
         {
-            "posx":200,
-            "posy":764,
-            "sizex":30,
-            "sizey":26
+            "x":-1000,
+            "y":800,
+            "w":10000,
+            "h":100
         },
-        "Moneta2":
         {
-            "posx":250,
-            "posy":764,
-            "sizex":30,
-            "sizey":26
+            "x":700,
+            "y":750,
+            "w":50,
+            "h":50
         },
-        "Moneta3":
         {
-            "posx":300,
-            "posy":764,
-            "sizex":30,
-            "sizey":26
+            "x":0,
+            "y":550,
+            "w":1000,
+            "h":50
         }
-    }
+    ],
+    "monete":
+    [
+        {
+            "x":250,
+            "y":800,
+            "w":30,
+            "h":26
+        },
+        {
+            "x":300,
+            "y":800,
+            "w":30,
+            "h":26
+        }
+    ]
 }
