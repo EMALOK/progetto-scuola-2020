@@ -312,7 +312,10 @@ void Game::initVars()
     player = new Player(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
 
     //Caricamento del font
-    font.loadFromFile("./immagini/ThaleahFat_TTF.ttf");
+    if(!font.loadFromFile("immagini/font/ThaleahFat.ttf"))
+    {
+        std::cout << "Failed To load";
+    }
 }
 
 /**

@@ -1,8 +1,8 @@
-#include <writer.h>
-#include <stringbuffer.h>
-#include <filereadstream.h>
-#include <filewritestream.h>
-#include <document.h>
+#include "rapidJson/writer.h"
+#include "rapidJson/stringbuffer.h"
+#include "rapidJson/filereadstream.h"
+#include "rapidJson/filewritestream.h"
+#include "rapidJson/document.h"
 #include <iostream>
 
 void ScoreUpdater(std::string Username, std::string Password, int NewBestScore)
@@ -63,9 +63,3 @@ void ScoreUpdater(std::string Username, std::string Password, int NewBestScore)
 
 
 
-
-    //NON RIESCO A CAPIRE COME SI ITERIZZA UN ARRAY IN QUELLA MERDA DI RAPIDJSON DIOMMMERDA
-    //CERTO CHE POTEVANO FARE UNA REPO IN CUI SI CAPISCA QUALCOSA
-    //C'E', SI CAPISCE, MA PORCODDIO NON SONO NELLA LORO TESTA
-    //VA BEH HO CAPITO SONO UN RITARDATO
-    //DOVREBBERO FARE UN'ALTRA REPO DOVE RISPIEGANO TUTTO COME SE DOVESSERO PARLARE AD UN AUTISTICO
