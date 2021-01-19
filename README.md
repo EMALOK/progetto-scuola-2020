@@ -34,3 +34,5 @@
 	 
 	 appunti su jamboard
 https://jamboard.google.com/d/1rosZrcKeH_THEa587HVlwblJFedYjjiJiXavM-9PbL0/viewer?f=3
+
+[Video](https://youtu.be/OTcojesdycY)
