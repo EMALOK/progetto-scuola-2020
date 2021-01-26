@@ -8,7 +8,7 @@
 void ScoreUpdater(std::string Username, std::string Password, int NewBestScore)
 {
     using namespace rapidjson;
-    FILE *fp = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "rb"); //Apro il file json
+    FILE *fp = fopen("./Users/Users.json", "rb"); //Apro il file json
     if (!fp)
         std::cout << "\nErrore di apertura del file..."; //Nel caso non si apra dare un errore
     char buf[0XFFFF];                                    //Inizializzo il buffer ad un numero altissimo
@@ -51,7 +51,7 @@ void ScoreUpdater(std::string Username, std::string Password, int NewBestScore)
 
             UserDoc.PushBack(data, UserDoc.GetAllocator()); //Metto le 3 nuove caratteristiche dell'utente dentro al doc
 
-            FILE *outfile = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "wb"); //Scrivo il file
+            FILE *outfile = fopen("./Users/Users.json", "wb"); //Scrivo il file
             char writeBuffer[65536];                                                                     //Creo il buffer dove ci metterò la stream
             FileWriteStream os(outfile, writeBuffer, sizeof(writeBuffer));                               //Metto tutto in un FileWriteStream
 

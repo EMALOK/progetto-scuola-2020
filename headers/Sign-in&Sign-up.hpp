@@ -47,7 +47,7 @@ void Sign_in(std::string Username, std::string Password)
 {
     using namespace rapidjson;
 
-    FILE *fp = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "rb"); //Leggo il file
+    FILE *fp = fopen("./Users.json", "rb"); //Leggo il file
     char readBuffer[65536];                                                                 //Creo il buffer dove ci metterò la stream
     FileReadStream is(fp, readBuffer, sizeof(readBuffer));                                  //Metto tutto in un FileReadStream
 
@@ -72,7 +72,7 @@ void Sign_in(std::string Username, std::string Password)
 
     d.PushBack(data, d2.GetAllocator()); //Aggiungo l'oggetto "data" al documento "d"
 
-    FILE *outfile = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "wb"); //Scrivo il file
+    FILE *outfile = fopen("./Users/Users.json", "wb"); //Scrivo il file
     char writeBuffer[65536];                                                                     //Creo il buffer dove ci metterò la stream
     FileWriteStream os(outfile, writeBuffer, sizeof(writeBuffer));                               //Metto tutto in un FileWriteStream
 
