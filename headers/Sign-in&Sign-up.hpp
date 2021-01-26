@@ -23,13 +23,12 @@ bool ClosedWindow = false;
 int BestScore;
 std::string Username;
 std::string Password;
-
 bool Sign_up(std::string Username, std::string Password)
 {
-    FILE *fp = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "rb");
+    FILE *fp = fopen("./Users/Users.json", "rb");
     if (!fp)
         std::cout << "\nErrore di apertura del file...";
-    char buf[0XFFFF];
+    char buf[0xFFFF];
     rapidjson::FileReadStream input(fp, buf, sizeof(buf));
     rapidjson::Document mapDoc;
     mapDoc.ParseStream(input);
