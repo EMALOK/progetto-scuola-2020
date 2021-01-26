@@ -92,7 +92,7 @@ void Player::reloadShape()
     shape.setSize(size);
 }
 
-void Player::render(sf::RenderWindow* window)
+void Player::render(sf::RenderWindow *window)
 {
     reloadShape();
 
@@ -118,5 +118,4 @@ Player::Player(sf::Vector2f position, sf::Vector2f size)
 
 Player::~Player()
 {
-    
 }

@@ -4,17 +4,17 @@
 #include <iostream> //debug
 #include <string>
 
-#define K_DEC 4.f //costante di decelerazione
-#define A_SPEED 450 //accelerazione orizzontale
-#define PLAYER_MAX_VH 400 //velocita orizzontale massima del player
-#define GRAVITY 900 //gravità
+#define K_DEC 4.f            //costante di decelerazione
+#define A_SPEED 450          //accelerazione orizzontale
+#define PLAYER_MAX_VH 400    //velocita orizzontale massima del player
+#define GRAVITY 900          //gravità
 #define INITIAL_JUMP_V -1000 //velocità iniziale del salto
-#define WINDOW_WIDTH 1400 //larghezza della finestra
-#define WINDOW_HEIGHT 900 //altezza della finestra
+#define WINDOW_WIDTH 1400    //larghezza della finestra
+#define WINDOW_HEIGHT 900    //altezza della finestra
 #define CAMERA_TRIGGER_X 500 //movimento necessario per far muovere la camera lungo l'asse x
 #define CAMERA_TRIGGER_Y 200 //movimento necessario per far muovere la camera lungo l'asse y
-#define PUNTEGGIO_OFF_X 30 //distanza dal bordo a destra
-#define PUNTEGGIO_OFF_Y 20 //distanza dal bordo in alto
+#define PUNTEGGIO_OFF_X 30   //distanza dal bordo a destra
+#define PUNTEGGIO_OFF_Y 20   //distanza dal bordo in alto
 
 int NewBestScore;
 
@@ -29,7 +29,6 @@ int NewBestScore;
 void Game::update(sf::Time delta_time)
 {
     pollEvents();
-
 
     //se il delta time supera il mezzo secondo molto probabilmente significa che l'utente non aveva la finestra in focus
     //quindi, reset del delta time per dare un effetto di pausa
@@ -61,7 +60,7 @@ void Game::update(sf::Time delta_time)
     {
         player->setAcceleration(sf::Vector2f(0, player->getAcceleration().y)); //impostiamo l'accelerazione a 0
     }
-    
+
     //  Sinistra
     if (left_control)
     {
@@ -76,13 +75,14 @@ void Game::update(sf::Time delta_time)
     if (jump_control)
     {
         //controllo se è possibile saltare
-        if (player->getSpeed().y == 0) {
+        if (player->getSpeed().y == 0)
+        {
             player->setSpeed(sf::Vector2f(player->getSpeed().x, INITIAL_JUMP_V)); //salto
         }
     }
 
     /*  FISICA  */
-    
+
     //  DEBUG FISICA
     /*std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
@@ -95,7 +95,7 @@ void Game::update(sf::Time delta_time)
         player->setSpeed(sf::Vector2f(GameUtils::lerp1d(player->getSpeed().x, 0.f, K_DEC * delta_time.asSeconds()), player->getSpeed().y));
     if (player->getAcceleration().y == 0 || GameUtils::discordi(player->getAcceleration().y, player->getSpeed().y))
         player->setSpeed(sf::Vector2f(player->getSpeed().x, GameUtils::lerp1d(player->getSpeed().y, 0.f, K_DEC * delta_time.asSeconds())));
-    
+
     //  Se la velocità è molto vicina a 0, impostarla direttamente a 0 (solo quando non è presente un'accelerazione)
     if (abs(player->getSpeed().x) <= 0.1f && player->getAcceleration().x == 0)
         player->setSpeed(sf::Vector2f(0.f, player->getSpeed().y));
@@ -109,7 +109,7 @@ void Game::update(sf::Time delta_time)
     // \/  non funziona correttamente \/
     // if (GameUtils::getSquareMagnitude(   &(player->getSpeed())         ) > PLAYER_MAX_VH * PLAYER_MAX_VH)
     //     player->setSpeed( GameUtils::setMagnitude(player->getSpeed(), PLAYER_MAX_VH) );
-    
+
     //  Controllo velocità orizzontale massima
     if (player->getSpeed().x >= PLAYER_MAX_VH)
         player->setSpeed(sf::Vector2f(PLAYER_MAX_VH, player->getSpeed().y));
@@ -118,7 +118,7 @@ void Game::update(sf::Time delta_time)
 
     //  Update Posizioni e controllo collisioni
     sf::Vector2f next_player_pos(player->getPosition() + GameUtils::scalare(player->getSpeed(), delta_time.asSeconds())); // p = p + (v * dt)
-    
+
     //  Controllo collisioni
     for (int i = 0; i < this->solidObjects.size(); ++i)
     {
@@ -139,27 +139,25 @@ void Game::update(sf::Time delta_time)
 
     //  Movimento alla posizione finale
     player->setCoordinates(next_player_pos);
-    
-
 
     /*  MOVIMENTO CAMERA  */
 
     //view->setCenter(sf::Vector2f(player->getPosition().x + (player->getSize().x / 2), player->getPosition().y + (player->getSize().y / 2))); //la videocamera segue perfettamente il giocatore
     //view->setRotation(view->getRotation() + (delta_time.asMilliseconds() * 0.1f)); // :)
 
-    if (player->getPosition().x < view->getCenter().x - CAMERA_TRIGGER_X) //player va a sinistra
-        view->move((player->getPosition().x) - (view->getCenter().x - CAMERA_TRIGGER_X), 0); //spostamento camera
-    if (player->getPosition().x + player->getSize().x > view->getCenter().x + CAMERA_TRIGGER_X) //player va a destra
+    if (player->getPosition().x < view->getCenter().x - CAMERA_TRIGGER_X)                                          //player va a sinistra
+        view->move((player->getPosition().x) - (view->getCenter().x - CAMERA_TRIGGER_X), 0);                       //spostamento camera
+    if (player->getPosition().x + player->getSize().x > view->getCenter().x + CAMERA_TRIGGER_X)                    //player va a destra
         view->move((player->getPosition().x + player->getSize().x) - (view->getCenter().x + CAMERA_TRIGGER_X), 0); //spostamento camera
-    if (player->getPosition().y < view->getCenter().y - CAMERA_TRIGGER_Y) //player va in alto
-        view->move(0, (player->getPosition().y) - (view->getCenter().y - CAMERA_TRIGGER_Y)); //spostamento camera
-    if (player->getPosition().y + player->getSize().y > view->getCenter().y + CAMERA_TRIGGER_Y) //player va in basso
+    if (player->getPosition().y < view->getCenter().y - CAMERA_TRIGGER_Y)                                          //player va in alto
+        view->move(0, (player->getPosition().y) - (view->getCenter().y - CAMERA_TRIGGER_Y));                       //spostamento camera
+    if (player->getPosition().y + player->getSize().y > view->getCenter().y + CAMERA_TRIGGER_Y)                    //player va in basso
         view->move(0, (player->getPosition().y + player->getSize().y) - (view->getCenter().y + CAMERA_TRIGGER_Y)); //spostamento camera
 
     window->setView(*view);
 
     /*  UPDATE OGGETTI IN SCENA */
-    
+
     //  Update monete
     for (int i = 0; i < coins.size(); ++i)
         this->coins[i].update(delta_time);
@@ -185,9 +183,9 @@ void Game::render(int BestScore)
     window->clear();
 
     //DRAW
-    renderCoins(); //render delle monete
+    renderCoins();        //render delle monete
     renderSolidObjects(); //render oggetti solidi
-    renderPlayer(); //render player
+    renderPlayer();       //render player
 
     renderOverlay(BestScore); //render dell'overlay (statistiche, ecc...)
 
@@ -226,7 +224,7 @@ void Game::renderCoins()
 
 /**
  * Renderizza l'overlay
- */ 
+ */
 void Game::renderOverlay(int BestScore)
 {
     sf::Text punteggio_text;
@@ -235,16 +233,17 @@ void Game::renderOverlay(int BestScore)
     sf::Text Bestpunteggio_text;
     Bestpunteggio_text.setFont(this->font);
 
-    punteggio_text.setCharacterSize(40); //grandezza caratteri
+    punteggio_text.setCharacterSize(40);           //grandezza caratteri
     punteggio_text.setFillColor(sf::Color::White); //colore
 
-    Bestpunteggio_text.setCharacterSize(40); //grandezza caratteri
+    Bestpunteggio_text.setCharacterSize(40);           //grandezza caratteri
     Bestpunteggio_text.setFillColor(sf::Color::White); //colore
 
     //stringa
     punteggio_text.setString("Punteggio: " + std::to_string(this->player->getPoints()));
 
-    if(BestScore >= this->player->getPoints()) Bestpunteggio_text.setString("Miglior Punteggio: " + std::to_string(BestScore));
+    if (BestScore >= this->player->getPoints())
+        Bestpunteggio_text.setString("Miglior Punteggio: " + std::to_string(BestScore));
     else
     {
         NewBestScore = (this->player->getPoints());
@@ -252,12 +251,12 @@ void Game::renderOverlay(int BestScore)
     }
 
     //posizione
-    float tx = view->getCenter().x + view->getSize().x/2 - PUNTEGGIO_OFF_X - punteggio_text.getLocalBounds().width;
-    float ty = view->getCenter().y - view->getSize().y/2 + PUNTEGGIO_OFF_Y;
+    float tx = view->getCenter().x + view->getSize().x / 2 - PUNTEGGIO_OFF_X - punteggio_text.getLocalBounds().width;
+    float ty = view->getCenter().y - view->getSize().y / 2 + PUNTEGGIO_OFF_Y;
     punteggio_text.setPosition(tx, ty);
 
-    float btx = view->getCenter().x + view->getSize().x/2 - (PUNTEGGIO_OFF_X * 2) - (punteggio_text.getLocalBounds().width + Bestpunteggio_text.getLocalBounds().width);
-    float bty = view->getCenter().y - view->getSize().y/2 + PUNTEGGIO_OFF_Y;
+    float btx = view->getCenter().x + view->getSize().x / 2 - (PUNTEGGIO_OFF_X * 2) - (punteggio_text.getLocalBounds().width + Bestpunteggio_text.getLocalBounds().width);
+    float bty = view->getCenter().y - view->getSize().y / 2 + PUNTEGGIO_OFF_Y;
     Bestpunteggio_text.setPosition(btx, bty);
 
     window->draw(punteggio_text);
@@ -281,20 +280,20 @@ bool Game::isGameOpen()
  */
 void Game::pollEvents()
 {
-    while(window->pollEvent(event))
+    while (window->pollEvent(event))
     {
-        switch(event.type)
+        switch (event.type)
         {
-            case sf::Event::Closed: //chiusura del gioco da Windows
-                window->close();
-                break;
+        case sf::Event::Closed: //chiusura del gioco da Windows
+            window->close();
+            break;
 
-            case sf::Event::KeyPressed: //chiusura del gioco dal tasto Esc
-                if (event.key.code == sf::Keyboard::Escape)
-                {
-                    window->close();
-                }
-                break;
+        case sf::Event::KeyPressed: //chiusura del gioco dal tasto Esc
+            if (event.key.code == sf::Keyboard::Escape)
+            {
+                window->close();
+            }
+            break;
         }
     }
 }
@@ -312,7 +311,7 @@ void Game::initVars()
     player = new Player(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
 
     //Caricamento del font
-    if(!font.loadFromFile("immagini/font/ThaleahFat.ttf"))
+    if (!font.loadFromFile("immagini/font/ThaleahFat.ttf"))
     {
         std::cout << "Failed To load";
     }
@@ -326,10 +325,10 @@ void Game::initWindow()
     //grandezza della finestra impostata alla grandezza dello schermo
     videomode.height = WINDOW_HEIGHT;
     videomode.width = WINDOW_WIDTH;
-    
+
     //apri finestra del gioco
     window = new sf::RenderWindow(videomode, "Gioco", sf::Style::Close | sf::Style::Titlebar);
-    
+
     window->setView(*view);
 
     window->setFramerateLimit(60);

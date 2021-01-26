@@ -18,8 +18,8 @@ private:
 
     //  Variabili di gioco
     std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nella scena
-    std::vector<Coin> coins; //Monete presenti nella scena
-    Player *player; //Puntatore al player
+    std::vector<Coin> coins;               //Monete presenti nella scena
+    Player *player;                        //Puntatore al player
 
     //  Inizializzazioni
     void initVars();
@@ -32,7 +32,6 @@ private:
     void renderOverlay(int BestScore);
 
 public:
-    
     //  Update e Render
     void update(sf::Time);
     void render(int BestScore);

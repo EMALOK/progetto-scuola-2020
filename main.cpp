@@ -6,35 +6,31 @@
 
 int main()
 {
-
     sf::Font arial;
-    if (!arial.loadFromFile("immagini/font/arial.ttf")){
+    if (!arial.loadFromFile("immagini/font/arial.ttf"))
+    {
         return EXIT_FAILURE;
     }
 
     sf::Font ThaleahFat;
-    if(!ThaleahFat.loadFromFile("immagini/font/ThaleahFat.ttf"))
+    if (!ThaleahFat.loadFromFile("immagini/font/ThaleahFat.ttf"))
     {
         return EXIT_FAILURE;
     }
 
     startWindow(arial, ThaleahFat);
-    if(ClosedWindow) return 0;
-
+    if (ClosedWindow)
+        return 0;
 
     //game window
     Game game;
-
-    //Loader mappa (TODO)
-    //Map("./Maps/Prova.json", &game);
-
 
     //generazione pavimento
     SolidObject pavimento = SolidObject(sf::Vector2f(-1000, 800), sf::Vector2f(10000, 100));
     game.addSolidObject(pavimento);
 
     //generazione ostacolo
-    SolidObject ostacolo = SolidObject(sf::Vector2f(700, 800-50), sf::Vector2f(50, 50));
+    SolidObject ostacolo = SolidObject(sf::Vector2f(700, 800 - 50), sf::Vector2f(50, 50));
     game.addSolidObject(ostacolo);
 
     //generazione secondo piano
@@ -42,11 +38,11 @@ int main()
     game.addSolidObject(secondopiano);
 
     //posizionamento moneta
-    Coin moneta = Coin(sf::Vector2f(200, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(0), 10);
+    Coin moneta = Coin(sf::Vector2f(200, 790 - 26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(0), 10);
     game.addCoin(moneta);
-    Coin moneta2 = Coin(sf::Vector2f(250, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(1), 20);
+    Coin moneta2 = Coin(sf::Vector2f(250, 790 - 26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(1), 20);
     game.addCoin(moneta2);
-    game.addCoin(Coin(sf::Vector2f(300, 790-26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(2), 30));
+    game.addCoin(Coin(sf::Vector2f(300, 790 - 26), sf::Vector2f(30, 26), "./immagini/gem-1.png", 30.f, 2.f, sf::seconds(2), 30));
 
     //posizionamento player
     game.getPlayer()->setCoordinates(sf::Vector2f(1400 / 2 - 50, 0));
@@ -62,14 +58,10 @@ int main()
         game.render(BestScore);
     }
 
-
-    
-    if(BestScore < NewBestScore)
+    if (BestScore < NewBestScore)
     {
         ScoreUpdater(Username, Password, NewBestScore);
     }
-    
-
 
     return 0;
 }

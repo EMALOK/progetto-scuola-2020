@@ -4,7 +4,8 @@
 /**
  * Funzioni di utilità generale
  */
-namespace GameUtils {
+namespace GameUtils
+{
 
     /** 
      * Interpolazione lineare di due valori
@@ -110,7 +111,7 @@ namespace GameUtils {
      */
     void setMagnitude(sf::Vector2f *v, float magnitude)
     {
-        *v = scalare(scalare(*v, magnitude), 1.f/getMagnitude(v));
+        *v = scalare(scalare(*v, magnitude), 1.f / getMagnitude(v));
     }
 
     /** Restituisce un nuovo vettore con la magnitudine impostata
@@ -122,6 +123,6 @@ namespace GameUtils {
      */
     sf::Vector2f setMagnitude(sf::Vector2f v, float magnitude)
     {
-        return scalare(scalare(v, magnitude), 1.f/getMagnitude(&v));
+        return scalare(scalare(v, magnitude), 1.f / getMagnitude(&v));
     }
-}
+} // namespace GameUtils

@@ -67,5 +67,4 @@ SolidObject::SolidObject(sf::Vector2f position, sf::Vector2f size)
  */
 SolidObject::~SolidObject()
 {
-
 }
