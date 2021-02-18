@@ -34,3 +34,5 @@ Map::Map(const char *map)
     mapDoc.ParseStream(input);                             //Lo analizzo
     fclose(fp);                                            //Chiudo il file
 }
+
+Map::~Map() {}
