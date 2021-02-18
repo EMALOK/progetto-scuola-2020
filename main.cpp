@@ -29,6 +29,7 @@ void loadLevel(int &levelIndex, Game *game)
 
     //posizionamento player
     game->getPlayer()->revive();
+    game->getPlayer()->setPoints(0);
     game->getPlayer()->setCoordinates(sf::Vector2f(1400 / 2 - 50, 0));
     game->getPlayer()->setDimensions(sf::Vector2f(50, 50));
     game->getPlayer()->setTexture("./immagini/big-crate.png");
