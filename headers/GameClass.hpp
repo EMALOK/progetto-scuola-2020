@@ -32,6 +32,9 @@ private:
     void renderOverlay(int BestScore);
 
 public:
+    //  Variabili per il level loader
+    bool levelCompleted = false; //true se il livello viene completato
+    void resetView();
     
     //  Update e Render
     void update(sf::Time);
@@ -53,6 +56,7 @@ public:
     void clearCoins();
 
     Player *getPlayer();
+    bool isPlayerAlive();
 
     //  Costruttore e Distruttore
     Game();
