@@ -87,7 +87,8 @@ void Game::update(sf::Time delta_time)
     /*std::cout << "acc.x " << player->getAcceleration().x << " ";
     std::cout << "acc.y " << player->getAcceleration().y << " ";
     std::cout << "vel.x " << player->getSpeed().x << " ";
-    std::cout << "vel.y " << player->getSpeed().y << "\n";*/
+    std::cout << "vel.y " << player->getSpeed().y << "\n";
+    std::cout << "y " << player->getPosition().y << std::endl;*/
 
     //  Decelerazioni per attrito
     //quando l'accelerazione è uguale a 0 -> applica attrito
@@ -169,7 +170,16 @@ void Game::update(sf::Time delta_time)
         {
             this->player->addPoints(this->coins[i].getPoints());
             removeCoin(coins[i]);
+
+            //livello completato se sono raccolte tutte le monete
+            if (coins.size() <= 0)
+                levelCompleted = true;
         }
+    }
+
+    // Controllo morte player
+    if (this->getPlayer()->getPosition().y > 3000) {
+        this->getPlayer()->kill();
     }
 }
 
@@ -261,6 +271,12 @@ void Game::renderOverlay(int BestScore)
 
     window->draw(punteggio_text);
     window->draw(Bestpunteggio_text);
+}
+
+void Game::resetView()
+{
+    delete view;
+    view = new sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 }
 
 //Funzioni della finestra
@@ -362,6 +378,14 @@ void Game::removeSolidObject(SolidObject solidObject)
     }
 }
 
+/**
+ * Rimuove tutti gli oggetti solidi dalla scena
+ */
+void Game::clearSolidObjects()
+{
+    this->solidObjects.clear();
+}
+
 //  Coins
 
 /**
@@ -390,6 +414,14 @@ void Game::removeCoin(Coin coin)
     }
 }
 
+/**
+ * Rimuove tutte le monete dalla scena
+ */
+void Game::clearCoins()
+{
+    this->coins.clear();
+}
+
 // Player
 
 /**
@@ -400,6 +432,11 @@ void Game::removeCoin(Coin coin)
 Player *Game::getPlayer()
 {
     return player;
+}
+
+bool Game::isPlayerAlive()
+{
+    return this->getPlayer()->isAlive();
 }
 
 //Costruttore e Distruttore

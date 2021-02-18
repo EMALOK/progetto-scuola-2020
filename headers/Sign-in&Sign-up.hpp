@@ -25,31 +25,32 @@ std::string Username;
 std::string Password;
 bool Sign_up(std::string Username, std::string Password)
 {
-    FILE *fp = fopen("./Users/Users.json", "rb");
-    if (!fp)
-        std::cout << "\nErrore di apertura del file...";
-    char buf[0xFFFF];
+    FILE* fp = fopen("./Users/Users.json", "rb");
+    if(!fp) std::cout << "\nErrore di apertura del file...";
+    char buf[0XFFFF];
     rapidjson::FileReadStream input(fp, buf, sizeof(buf));
     rapidjson::Document mapDoc;
     mapDoc.ParseStream(input);
     fclose(fp);
 
-    for (auto const &p : mapDoc.GetArray())
-        if (p["Username"].GetString() == Username && p["Password"].GetString() == Password) //Loppa in tutti gli utenti e se ne trova 1 che combacia lo fa loggare
+    for(auto& v : mapDoc.GetArray())// if(p["Username"].GetString() == Username && p["Password"].GetString() == Password) //Loppa in tutti gli utenti e se ne trova 1 che combacia lo fa loggare
+    {
+        if(v["Username"].GetString() == Username && v["Password"].GetString() == Password) //Loppa in tutti gli utenti e se ne trova 1 che combacia lo fa loggare
         {
-            BestScore = p["BestScore"].GetInt();
+            BestScore = v["BestScore"].GetInt();
             return true;
         }
+    }
     return false; //Altrimenti fa rimettere le credenziali
 }
 
 void Sign_in(std::string Username, std::string Password)
 {
     using namespace rapidjson;
-
-    FILE *fp = fopen("./Users.json", "rb"); //Leggo il file
-    char readBuffer[65536];                                                                 //Creo il buffer dove ci metterò la stream
-    FileReadStream is(fp, readBuffer, sizeof(readBuffer));                                  //Metto tutto in un FileReadStream
+  
+    FILE* fp = fopen("./Users/Users.json", "rb"); //Leggo il file
+    char readBuffer[65536]; //Creo il buffer dove ci metterò la stream
+    FileReadStream is(fp, readBuffer, sizeof(readBuffer)); //Metto tutto in un FileReadStream
 
     Document d, d2;
     d.ParseStream(is);   //Parso il buffer di prima
@@ -64,17 +65,17 @@ void Sign_in(std::string Username, std::string Password)
 
     value1.SetString(Username.c_str(), d2.GetAllocator()); //Metto la stringa con l'username in "value1" con l'allocator di d2
     value2.SetString(Password.c_str(), d2.GetAllocator()); //Metto la stringa con la password in "value2" con l'allocator di d2
-    value3.SetInt(0);                                      //Metto la stringa con il best score(0) con l'allocator di d2
+    value3.SetInt(0); //Metto la stringa con il best score(0) con l'allocator di d2
 
-    data.AddMember("Username", value1, d2.GetAllocator());  //Aggiungo l'username all'oggetto "data"
-    data.AddMember("Password", value2, d2.GetAllocator());  //Aggiungo la password all'oggetto "data"
+    data.AddMember("Username", value1, d2.GetAllocator()); //Aggiungo l'username all'oggetto "data"
+    data.AddMember("Password", value2, d2.GetAllocator()); //Aggiungo la password all'oggetto "data"
     data.AddMember("BestScore", value3, d2.GetAllocator()); //Aggiungo il BestScore all'oggetto "data"
 
     d.PushBack(data, d2.GetAllocator()); //Aggiungo l'oggetto "data" al documento "d"
 
-    FILE *outfile = fopen("./Users/Users.json", "wb"); //Scrivo il file
-    char writeBuffer[65536];                                                                     //Creo il buffer dove ci metterò la stream
-    FileWriteStream os(outfile, writeBuffer, sizeof(writeBuffer));                               //Metto tutto in un FileWriteStream
+    FILE* outfile = fopen("./Users/Users.json", "wb"); //Scrivo il file
+    char writeBuffer[65536]; //Creo il buffer dove ci metterò la stream
+    FileWriteStream os(outfile, writeBuffer, sizeof(writeBuffer)); //Metto tutto in un FileWriteStream
 
     Writer<FileWriteStream> writer(os); //Uso un writer per parsarlo nel documento
     d.Accept(writer);                   //Metto il buffer parsato nel documento

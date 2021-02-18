@@ -37,6 +37,11 @@ int Player::getPoints()
     return this->points;
 }
 
+bool Player::isAlive()
+{
+    return this->alive;
+}
+
 //  Setters
 
 void Player::setCoordinates(sf::Vector2f position)
@@ -82,6 +87,16 @@ void Player::setPoints(int points)
 void Player::addPoints(int points)
 {
     this->points += points;
+}
+
+void Player::kill()
+{
+    this->alive = false;
+}
+
+void Player::revive()
+{
+    this->alive = true;
 }
 
 //  Rendering
