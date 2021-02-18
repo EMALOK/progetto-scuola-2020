@@ -69,6 +69,7 @@ int main()
         game.render(BestScore);
         if (game.levelCompleted) //vai al livello successivo
         {
+            game.levelCompleted = false;
             levelIndex++;
             loadLevel(levelIndex, &game);
         }
