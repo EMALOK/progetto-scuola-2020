@@ -18,8 +18,8 @@ private:
 
     //  Variabili di gioco
     std::vector<SolidObject> solidObjects; //Oggetti solidi presenti nella scena
-    std::vector<Coin> coins; //Monete presenti nella scena
-    Player *player; //Puntatore al player
+    std::vector<Coin> coins;               //Monete presenti nella scena
+    Player *player;                        //Puntatore al player
 
     //  Inizializzazioni
     void initVars();
@@ -35,7 +35,6 @@ public:
     //  Variabili per il level loader
     bool levelCompleted = false; //true se il livello viene completato
     void resetView();
-    
     //  Update e Render
     void update(sf::Time);
     void render(int BestScore);

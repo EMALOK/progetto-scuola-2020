@@ -23,7 +23,6 @@ bool ClosedWindow = false;
 int BestScore;
 std::string Username;
 std::string Password;
-
 bool Sign_up(std::string Username, std::string Password)
 {
     FILE* fp = fopen("./Users/Users.json", "rb");
@@ -48,13 +47,13 @@ bool Sign_up(std::string Username, std::string Password)
 void Sign_in(std::string Username, std::string Password)
 {
     using namespace rapidjson;
-
+  
     FILE* fp = fopen("./Users/Users.json", "rb"); //Leggo il file
     char readBuffer[65536]; //Creo il buffer dove ci metterò la stream
     FileReadStream is(fp, readBuffer, sizeof(readBuffer)); //Metto tutto in un FileReadStream
 
     Document d, d2;
-    d.ParseStream(is); //Parso il buffer di prima
+    d.ParseStream(is);   //Parso il buffer di prima
     assert(d.IsArray()); //Controllo che sia un array
     fclose(fp);
     d2.SetObject();
@@ -74,13 +73,12 @@ void Sign_in(std::string Username, std::string Password)
 
     d.PushBack(data, d2.GetAllocator()); //Aggiungo l'oggetto "data" al documento "d"
 
-
     FILE* outfile = fopen("./Users/Users.json", "wb"); //Scrivo il file
     char writeBuffer[65536]; //Creo il buffer dove ci metterò la stream
     FileWriteStream os(outfile, writeBuffer, sizeof(writeBuffer)); //Metto tutto in un FileWriteStream
 
     Writer<FileWriteStream> writer(os); //Uso un writer per parsarlo nel documento
-    d.Accept (writer); //Metto il buffer parsato nel documento
+    d.Accept(writer);                   //Metto il buffer parsato nel documento
     fclose(outfile);
 }
 
@@ -91,7 +89,7 @@ bool CarattereSpec(char carattere)
 
     else if (carattere >= 48 && carattere <= 57) //Controllo che non sia un numero
         return false;
-  
+
     else //Se non è una lettera o un numero allora è un carattere speciale
         return true;
 }
@@ -100,52 +98,60 @@ bool ControlloPassword(std::string Pass, std::string ConfPass)
 {
     bool Cap = false, Num = false, Char = false;
 
-    if(Pass != ConfPass) //Controllo che le password siano uguali
+    if (Pass != ConfPass) //Controllo che le password siano uguali
     {
         EqError = true;
         return false;
     }
-    else EqError = false;
+    else
+        EqError = false;
 
-    if(Pass.length() <= 8)
+    if (Pass.length() <= 8)
     {
         LenghtError = true; //Controllo che la password sia più lunga di 8 caratteri
         return false;
     }
-    else LenghtError = false;
+    else
+        LenghtError = false;
 
-    for(int i = 0; i < Pass.length(); i++)
+    for (int i = 0; i < Pass.length(); i++)
     {
-        if(isupper(Pass.at(i))) Cap = true; //Controllo che nella password ci sia almeno una maiuscola
+        if (isupper(Pass.at(i)))
+            Cap = true; //Controllo che nella password ci sia almeno una maiuscola
 
-        if(isdigit(Pass.at(i))) Num = true; //Controllo che nella password ci sia almeno un numero
+        if (isdigit(Pass.at(i)))
+            Num = true; //Controllo che nella password ci sia almeno un numero
 
-        if(CarattereSpec(Pass.at(i))) Char = true; //Controllo che nella password ci sia almeno un carattere speciale
+        if (CarattereSpec(Pass.at(i)))
+            Char = true; //Controllo che nella password ci sia almeno un carattere speciale
 
-        if((Cap == true && Num == true) && Char == true) break;
+        if ((Cap == true && Num == true) && Char == true)
+            break;
     }
 
-    if( Cap == false )
+    if (Cap == false)
     {
         CapError = true;
         return false;
     }
-    else CapError = false;
-    
+    else
+        CapError = false;
 
-    if( Num == false )
+    if (Num == false)
     {
         NumError = true;
         return false;
     }
-    else NumError = false;
+    else
+        NumError = false;
 
-    if( Char == false )
+    if (Char == false)
     {
         SpecCharError = true;
         return false;
     }
-    else SpecCharError = false;
+    else
+        SpecCharError = false;
 
     return true;
 }
@@ -171,67 +177,54 @@ void signUpWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Accedi
     Title.setFillColor(sf::Color::White);
     Title.setPosition(sf::Vector2f(WIDTH / 2.f - Title.getLocalBounds().width / 2, 50));
 
-
-
- 
     sf::Text UsernameText("Username:", ThaleahFat);
     UsernameText.setCharacterSize(30);
     UsernameText.setFillColor(sf::Color::White);
-    UsernameText.setPosition( { 75, 185 } );
-    
+    UsernameText.setPosition({75, 185});
+
     sf::Color UsernameBtnColor(128, 128, 128);
-    Button btnUsername("", { 750, 65 }, 20, UsernameBtnColor, sf::Color::Black);
-    btnUsername.setPosition( { 75, 225 } );
-    
+    Button btnUsername("", {750, 65}, 20, UsernameBtnColor, sf::Color::Black);
+    btnUsername.setPosition({75, 225});
+
     Textbox UsernameTextBox(15, sf::Color::White, false);
     UsernameTextBox.setFont(arial);
-    UsernameTextBox.setPosition( {100, 250} );
+    UsernameTextBox.setPosition({100, 250});
     UsernameTextBox.setLimit(true, 85);
-
-
-
 
     sf::Text PasswordText("Password:", ThaleahFat);
     PasswordText.setCharacterSize(30);
     PasswordText.setFillColor(sf::Color::White);
-    PasswordText.setPosition( { 75, 350 } );
-    
+    PasswordText.setPosition({75, 350});
+
     sf::Color PasswordBtnColor(128, 128, 128);
-    Button btnPassword("", { 750, 65 }, 20, PasswordBtnColor, sf::Color::Black);
-    btnPassword.setPosition( { 75, 390 } );
-    
+    Button btnPassword("", {750, 65}, 20, PasswordBtnColor, sf::Color::Black);
+    btnPassword.setPosition({75, 390});
+
     Textbox PasswordTextBox(15, sf::Color::White, true);
     PasswordTextBox.setFont(arial);
-    PasswordTextBox.setPosition( {100, 415} );
+    PasswordTextBox.setPosition({100, 415});
     PasswordTextBox.setLimit(true, 85);
 
-
-    Button Accept("Accept", { 200, 50 }, 20, sf::Color::Green, sf::Color::Black);
-    Accept.setPosition( { 75, 550 } );
+    Button Accept("Accept", {200, 50}, 20, sf::Color::Green, sf::Color::Black);
+    Accept.setPosition({75, 550});
     Accept.setFont(arial);
 
-
-
-    Button Return("Return", { 200, 50 }, 20, sf::Color::Green, sf::Color::Black);
-    Return.setPosition( { (WIDTH - 75) - 200, 550 } );
+    Button Return("Return", {200, 50}, 20, sf::Color::Green, sf::Color::Black);
+    Return.setPosition({(WIDTH - 75) - 200, 550});
     Return.setFont(arial);
-
-
 
     sf::Text UserNotRecognized("User Not Recognized...", ThaleahFat);
     UserNotRecognized.setCharacterSize(30);
     UserNotRecognized.setFillColor(sf::Color::White);
-    UserNotRecognized.setPosition( { 75, 475 } );
-
-
+    UserNotRecognized.setPosition({75, 475});
 
     bool UserError = false;
 
-    while(window.isOpen())
+    while (window.isOpen())
     {
         sf::Event evnt;
 
-        while(window.pollEvent(evnt))
+        while (window.pollEvent(evnt))
         {
             switch (evnt.type)
             {
@@ -244,15 +237,15 @@ void signUpWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Accedi
                 PasswordTextBox.typedOn(evnt);
                 break;
             case sf::Event::MouseMoved:
-                if(btnUsername.isMouseOver(window))
+                if (btnUsername.isMouseOver(window))
                 {
                     UsernameTextBox.setSelected(true);
                 }
-                else 
+                else
                 {
                     UsernameTextBox.setSelected(false);
                 }
-                if(btnPassword.isMouseOver(window))
+                if (btnPassword.isMouseOver(window))
                 {
                     PasswordTextBox.setSelected(true);
                 }
@@ -262,18 +255,18 @@ void signUpWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Accedi
                 }
                 break;
             case sf::Event::MouseButtonPressed:
-                if(Accept.isMouseOver(window) && Sign_up(UsernameTextBox.getText(), PasswordTextBox.getText()))
+                if (Accept.isMouseOver(window) && Sign_up(UsernameTextBox.getText(), PasswordTextBox.getText()))
                 {
                     Username = UsernameTextBox.getText();
                     Password = PasswordTextBox.getText();
-                    
+
                     window.close();
                 }
-                else if(Accept.isMouseOver(window) && !(Sign_up(UsernameTextBox.getText(), PasswordTextBox.getText())))
+                else if (Accept.isMouseOver(window) && !(Sign_up(UsernameTextBox.getText(), PasswordTextBox.getText())))
                 {
                     UserError = true;
                 }
-                if(Return.isMouseOver(window))
+                if (Return.isMouseOver(window))
                 {
                     window.close();
                     startWindow(arial, ThaleahFat);
@@ -289,7 +282,8 @@ void signUpWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Accedi
             window.draw(Title);
             Accept.drawTo(window);
             Return.drawTo(window);
-            if(UserError) window.draw(UserNotRecognized);
+            if (UserError)
+                window.draw(UserNotRecognized);
             window.display();
         }
     }
@@ -311,107 +305,86 @@ void signInWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Registrati
     Title.setFillColor(sf::Color::White);
     Title.setPosition(sf::Vector2f(WIDTH / 2.f - Title.getLocalBounds().width / 2, 50));
 
-
-
- 
     sf::Text UsernameText("Username:", ThaleahFat);
     UsernameText.setCharacterSize(30);
     UsernameText.setFillColor(sf::Color::White);
-    UsernameText.setPosition( { 75, 185 } );
-    
+    UsernameText.setPosition({75, 185});
+
     sf::Color UsernameBtnColor(128, 128, 128);
-    Button btnUsername("", { 750, 65 }, 20, UsernameBtnColor, sf::Color::Black);
-    btnUsername.setPosition( { 75, 225 } );
-    
+    Button btnUsername("", {750, 65}, 20, UsernameBtnColor, sf::Color::Black);
+    btnUsername.setPosition({75, 225});
+
     Textbox UsernameTextBox(15, sf::Color::White, false);
     UsernameTextBox.setFont(arial);
-    UsernameTextBox.setPosition( {100, 250} );
+    UsernameTextBox.setPosition({100, 250});
     UsernameTextBox.setLimit(true, 85);
-
-
-
 
     sf::Text PasswordText("Password:", ThaleahFat);
     PasswordText.setCharacterSize(30);
     PasswordText.setFillColor(sf::Color::White);
-    PasswordText.setPosition( { 75, 350 } );
-    
+    PasswordText.setPosition({75, 350});
+
     sf::Color PasswordBtnColor(128, 128, 128);
-    Button btnPassword("", { 750, 65 }, 20, PasswordBtnColor, sf::Color::Black);
-    btnPassword.setPosition( { 75, 390 } );
-    
+    Button btnPassword("", {750, 65}, 20, PasswordBtnColor, sf::Color::Black);
+    btnPassword.setPosition({75, 390});
+
     Textbox PasswordTextBox(15, sf::Color::White, true);
     PasswordTextBox.setFont(arial);
-    PasswordTextBox.setPosition( {100, 415} );
+    PasswordTextBox.setPosition({100, 415});
     PasswordTextBox.setLimit(true, 85);
-
-
 
     sf::Text ConfPasswordText("Confirm Password:", ThaleahFat);
     ConfPasswordText.setCharacterSize(30);
     ConfPasswordText.setFillColor(sf::Color::White);
-    ConfPasswordText.setPosition( { 75, 515 } );
-    
+    ConfPasswordText.setPosition({75, 515});
+
     sf::Color ConfPasswordBtnColor(128, 128, 128);
-    Button ConfbtnPassword("", { 750, 65 }, 20, ConfPasswordBtnColor, sf::Color::Black);
-    ConfbtnPassword.setPosition( { 75, 555 } );
-    
+    Button ConfbtnPassword("", {750, 65}, 20, ConfPasswordBtnColor, sf::Color::Black);
+    ConfbtnPassword.setPosition({75, 555});
+
     Textbox ConfPasswordTextBox(15, sf::Color::White, true);
     ConfPasswordTextBox.setFont(arial);
-    ConfPasswordTextBox.setPosition( {100, 580} );
+    ConfPasswordTextBox.setPosition({100, 580});
     ConfPasswordTextBox.setLimit(true, 85);
 
-
-    Button Accept("Accept", { 200, 50 }, 20, sf::Color::Green, sf::Color::Black);
-    Accept.setPosition( { 75, 640 } );
+    Button Accept("Accept", {200, 50}, 20, sf::Color::Green, sf::Color::Black);
+    Accept.setPosition({75, 640});
     Accept.setFont(arial);
 
-
-
-    Button Return("Return", { 200, 50 }, 20, sf::Color::Green, sf::Color::Black);
-    Return.setPosition( { (WIDTH - 75) - 200, 640 } );
+    Button Return("Return", {200, 50}, 20, sf::Color::Green, sf::Color::Black);
+    Return.setPosition({(WIDTH - 75) - 200, 640});
     Return.setFont(arial);
-
-
 
     sf::Text EqErrorText("Passwords are different...", ThaleahFat);
     EqErrorText.setCharacterSize(30);
     EqErrorText.setFillColor(sf::Color::White);
-    EqErrorText.setPosition( { 75, ERRORS_SIGN_IN_Y_DEF } );
-
-
+    EqErrorText.setPosition({75, ERRORS_SIGN_IN_Y_DEF});
 
     sf::Text LenghtErrorText("Minimum password length: 8 characters...", ThaleahFat);
     LenghtErrorText.setCharacterSize(30);
     LenghtErrorText.setFillColor(sf::Color::White);
-    LenghtErrorText.setPosition( { 75, ERRORS_SIGN_IN_Y_DEF + ( EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) } );
-
-
+    LenghtErrorText.setPosition({75, ERRORS_SIGN_IN_Y_DEF + (EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF)});
 
     sf::Text SpecCharErrorText("The password must have at least one special character...", ThaleahFat);
     SpecCharErrorText.setCharacterSize(30);
     SpecCharErrorText.setFillColor(sf::Color::White);
-    SpecCharErrorText.setPosition( { 75, ERRORS_SIGN_IN_Y_DEF + ( ( EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) + ( LenghtErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) ) } );
-
-
+    SpecCharErrorText.setPosition({75, ERRORS_SIGN_IN_Y_DEF + ((EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF) + (LenghtErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF))});
 
     sf::Text NumErrorText("The password must have at least one number...", ThaleahFat);
     NumErrorText.setCharacterSize(30);
     NumErrorText.setFillColor(sf::Color::White);
-    NumErrorText.setPosition( { 75, ERRORS_SIGN_IN_Y_DEF + ( ( EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) + ( LenghtErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) + (SpecCharErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) ) } );
-
-
+    NumErrorText.setPosition({75, ERRORS_SIGN_IN_Y_DEF + ((EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF) + (LenghtErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF) + (SpecCharErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF))});
 
     sf::Text CapErrorText("The password must have at least one capital letter...", ThaleahFat);
     CapErrorText.setCharacterSize(30);
     CapErrorText.setFillColor(sf::Color::White);
-    CapErrorText.setPosition( { 75, ERRORS_SIGN_IN_Y_DEF + ( ( EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) + ( LenghtErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) + ( SpecCharErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) + ( NumErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF ) ) } );
+    CapErrorText.setPosition({75, ERRORS_SIGN_IN_Y_DEF + ((EqErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF) + (LenghtErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF) + (SpecCharErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF) + (NumErrorText.getLocalBounds().height + ERRORS_SIGN_IN_Y_OFF))});
 
-    while(window.isOpen())
+    while (window.isOpen())
     {
         sf::Event evnt;
 
-        while(window.pollEvent(evnt))
+        while (window.pollEvent(evnt))
         {
             switch (evnt.type)
             {
@@ -425,7 +398,7 @@ void signInWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Registrati
                 ConfPasswordTextBox.typedOn(evnt);
                 break;
             case sf::Event::MouseMoved:
-                if(btnUsername.isMouseOver(window))
+                if (btnUsername.isMouseOver(window))
                 {
                     UsernameTextBox.setSelected(true);
                 }
@@ -434,7 +407,7 @@ void signInWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Registrati
                     UsernameTextBox.setSelected(false);
                 }
 
-                if(btnPassword.isMouseOver(window))
+                if (btnPassword.isMouseOver(window))
                 {
                     PasswordTextBox.setSelected(true);
                 }
@@ -443,7 +416,7 @@ void signInWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Registrati
                     PasswordTextBox.setSelected(false);
                 }
 
-                if(ConfbtnPassword.isMouseOver(window))
+                if (ConfbtnPassword.isMouseOver(window))
                 {
                     ConfPasswordTextBox.setSelected(true);
                 }
@@ -453,13 +426,13 @@ void signInWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Registrati
                 }
                 break;
             case sf::Event::MouseButtonPressed:
-                if(Accept.isMouseOver(window) && ControlloPassword(PasswordTextBox.getText(), ConfPasswordTextBox.getText()))
+                if (Accept.isMouseOver(window) && ControlloPassword(PasswordTextBox.getText(), ConfPasswordTextBox.getText()))
                 {
                     Sign_in(UsernameTextBox.getText(), PasswordTextBox.getText());
                     window.close();
                 }
-                
-                if(Return.isMouseOver(window))
+
+                if (Return.isMouseOver(window))
                 {
                     window.close();
                     startWindow(arial, ThaleahFat);
@@ -479,11 +452,16 @@ void signInWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra Registrati
             Accept.drawTo(window);
             Return.drawTo(window);
             //Possible Errors
-            if(EqError) window.draw(EqErrorText);
-            if(LenghtError) window.draw(LenghtErrorText);
-            if(SpecCharError) window.draw(SpecCharErrorText);
-            if(NumError) window.draw(NumErrorText);
-            if(CapError) window.draw(CapErrorText);
+            if (EqError)
+                window.draw(EqErrorText);
+            if (LenghtError)
+                window.draw(LenghtErrorText);
+            if (SpecCharError)
+                window.draw(SpecCharErrorText);
+            if (NumError)
+                window.draw(NumErrorText);
+            if (CapError)
+                window.draw(CapErrorText);
             window.display();
         }
     }
@@ -506,18 +484,18 @@ void startWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra di inizio
     Title.setPosition(sf::Vector2f(WIDTH / 2.f - Title.getLocalBounds().width / 2, 50));
 
     Button btnSignUp("Sign Up", {200, 50}, 20, sf::Color::Green, sf::Color::Black);
-    btnSignUp.setPosition( { 100, 300 } );
+    btnSignUp.setPosition({100, 300});
     btnSignUp.setFont(arial);
 
     Button btnSignIn("Sign In", {200, 50}, 20, sf::Color::Green, sf::Color::Black);
-    btnSignIn.setPosition( { 600, 300} );
+    btnSignIn.setPosition({600, 300});
     btnSignIn.setFont(arial);
 
-    while(window.isOpen())
+    while (window.isOpen())
     {
         sf::Event evnt;
 
-        while(window.pollEvent(evnt))
+        while (window.pollEvent(evnt))
         {
             switch (evnt.type)
             {
@@ -526,17 +504,17 @@ void startWindow(sf::Font arial, sf::Font ThaleahFat) //Finestra di inizio
                 window.close();
                 break;
             case sf::Event::MouseButtonPressed:
-                if(btnSignUp.isMouseOver(window))
+                if (btnSignUp.isMouseOver(window))
                 {
                     window.close();
                     signUpWindow(arial, ThaleahFat);
                 }
-                else if(btnSignIn.isMouseOver(window))
+                else if (btnSignIn.isMouseOver(window))
                 {
                     window.close();
                     signInWindow(arial, ThaleahFat);
                 }
-                
+
                 break;
             }
             window.clear();

@@ -16,7 +16,7 @@ public:
 
     //  Operatori
 
-    bool operator== (const SolidObject &);
+    bool operator==(const SolidObject &);
 
     //  Costruttore e Distruttore
 

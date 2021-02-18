@@ -49,7 +49,7 @@ public:
     //  Rendering
 
     void reloadShape();
-    void render(sf::RenderWindow*);
+    void render(sf::RenderWindow *);
 
     //  Costruttore e distruttore
 

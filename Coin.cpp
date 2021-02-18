@@ -63,7 +63,7 @@ void Coin::setSize(sf::Vector2f size)
  * 
  * @param window Finestra su cui applicare la renderizzazione
  */
-void Coin::render(sf::RenderWindow* window)
+void Coin::render(sf::RenderWindow *window)
 {
     this->shape.setTexture(&texture);
 
@@ -77,10 +77,10 @@ void Coin::render(sf::RenderWindow* window)
  */
 void Coin::update(sf::Time delta_time)
 {
-    this->position_timer += delta_time.asSeconds()*this->animation_speed; //time = time + delta_time
+    this->position_timer += delta_time.asSeconds() * this->animation_speed; //time = time + delta_time
 
-    if (this->position_timer > 4*std::acos(0.0)) //time > 2PI
-        position_timer -= 4*std::acos(0.0); //time = time - 2PI
+    if (this->position_timer > 4 * std::acos(0.0)) //time > 2PI
+        position_timer -= 4 * std::acos(0.0);      //time = time - 2PI
 
     this->shape.setPosition(shape.getPosition().x, min_y_pos + (std::sin(position_timer + this->animation_time_offset.asSeconds()) * this->animation_height) - this->animation_height); //y = min_y + (sin(time) * a_height) - a_height
 }
@@ -127,5 +127,4 @@ Coin::Coin(sf::Vector2f position, sf::Vector2f size, sf::String texture_path, fl
 
 Coin::~Coin()
 {
-
 }

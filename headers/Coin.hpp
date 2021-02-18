@@ -16,6 +16,7 @@ private:
     sf::Time animation_time_offset;
 
     int points;
+
 public:
     //  Getters
 
@@ -32,12 +33,12 @@ public:
 
     //  Update / Render
 
-    void render(sf::RenderWindow*);
+    void render(sf::RenderWindow *);
     void update(sf::Time);
 
     //  Operatori
 
-    bool operator== (const Coin &);
+    bool operator==(const Coin &);
 
     //  Costruttore e Distruttore
 
