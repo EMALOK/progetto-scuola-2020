@@ -14,6 +14,8 @@ private:
 
     int points = 0;
 
+    bool alive = true;
+
 public:
     //  Getters
 
@@ -25,6 +27,8 @@ public:
     sf::Vector2f getAcceleration();
 
     int getPoints();
+
+    bool isAlive();
 
     //  Setters
 
@@ -38,6 +42,9 @@ public:
 
     void setPoints(int);
     void addPoints(int);
+
+    void kill();
+    void revive();
 
     //  Rendering
 

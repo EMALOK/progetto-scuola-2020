@@ -37,6 +37,11 @@ int Player::getPoints()
     return this->points;
 }
 
+bool Player::isAlive()
+{
+    return this->alive;
+}
+
 //  Setters
 
 void Player::setCoordinates(sf::Vector2f position)
@@ -84,6 +89,16 @@ void Player::addPoints(int points)
     this->points += points;
 }
 
+void Player::kill()
+{
+    this->alive = false;
+}
+
+void Player::revive()
+{
+    this->alive = true;
+}
+
 //  Rendering
 
 void Player::reloadShape()
@@ -92,7 +107,7 @@ void Player::reloadShape()
     shape.setSize(size);
 }
 
-void Player::render(sf::RenderWindow* window)
+void Player::render(sf::RenderWindow *window)
 {
     reloadShape();
 
@@ -118,5 +133,4 @@ Player::Player(sf::Vector2f position, sf::Vector2f size)
 
 Player::~Player()
 {
-    
 }
