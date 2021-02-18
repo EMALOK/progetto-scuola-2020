@@ -26,6 +26,5 @@ public:
     sf::Vector2f posCoin(int Index);
     sf::Vector2f dimCoin(int Index);
 
-private:
     rapidjson::Document mapDoc;
 };

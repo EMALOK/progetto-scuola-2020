@@ -26,7 +26,7 @@ std::string Password;
 
 bool Sign_up(std::string Username, std::string Password)
 {
-    FILE* fp = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "rb");
+    FILE* fp = fopen("./Users/Users.json", "rb");
     if(!fp) std::cout << "\nErrore di apertura del file...";
     char buf[0XFFFF];
     rapidjson::FileReadStream input(fp, buf, sizeof(buf));
@@ -34,10 +34,13 @@ bool Sign_up(std::string Username, std::string Password)
     mapDoc.ParseStream(input);
     fclose(fp);
 
-    for(auto const& p : mapDoc.GetArray()) if(p["Username"].GetString() == Username && p["Password"].GetString() == Password) //Loppa in tutti gli utenti e se ne trova 1 che combacia lo fa loggare
+    for(auto& v : mapDoc.GetArray())// if(p["Username"].GetString() == Username && p["Password"].GetString() == Password) //Loppa in tutti gli utenti e se ne trova 1 che combacia lo fa loggare
     {
-        BestScore = p["BestScore"].GetInt();
-        return true;
+        if(v["Username"].GetString() == Username && v["Password"].GetString() == Password) //Loppa in tutti gli utenti e se ne trova 1 che combacia lo fa loggare
+        {
+            BestScore = v["BestScore"].GetInt();
+            return true;
+        }
     }
     return false; //Altrimenti fa rimettere le credenziali
 }
@@ -46,7 +49,7 @@ void Sign_in(std::string Username, std::string Password)
 {
     using namespace rapidjson;
 
-    FILE* fp = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "rb"); //Leggo il file
+    FILE* fp = fopen("./Users/Users.json", "rb"); //Leggo il file
     char readBuffer[65536]; //Creo il buffer dove ci metterò la stream
     FileReadStream is(fp, readBuffer, sizeof(readBuffer)); //Metto tutto in un FileReadStream
 
@@ -64,7 +67,7 @@ void Sign_in(std::string Username, std::string Password)
     value1.SetString(Username.c_str(), d2.GetAllocator()); //Metto la stringa con l'username in "value1" con l'allocator di d2
     value2.SetString(Password.c_str(), d2.GetAllocator()); //Metto la stringa con la password in "value2" con l'allocator di d2
     value3.SetInt(0); //Metto la stringa con il best score(0) con l'allocator di d2
-    
+
     data.AddMember("Username", value1, d2.GetAllocator()); //Aggiungo l'username all'oggetto "data"
     data.AddMember("Password", value2, d2.GetAllocator()); //Aggiungo la password all'oggetto "data"
     data.AddMember("BestScore", value3, d2.GetAllocator()); //Aggiungo il BestScore all'oggetto "data"
@@ -72,7 +75,7 @@ void Sign_in(std::string Username, std::string Password)
     d.PushBack(data, d2.GetAllocator()); //Aggiungo l'oggetto "data" al documento "d"
 
 
-    FILE* outfile = fopen("C:/Users/super/Desktop/progetto-scuola-2020/Users/Users.json", "wb"); //Scrivo il file
+    FILE* outfile = fopen("./Users/Users.json", "wb"); //Scrivo il file
     char writeBuffer[65536]; //Creo il buffer dove ci metterò la stream
     FileWriteStream os(outfile, writeBuffer, sizeof(writeBuffer)); //Metto tutto in un FileWriteStream
 

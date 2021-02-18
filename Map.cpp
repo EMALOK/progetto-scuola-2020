@@ -18,11 +18,11 @@ sf::Vector2f Map::dimBlock(int Index)
 //Trova la x e la y della moneta 'Index' nel file json
 sf::Vector2f Map::posCoin(int Index)
 {
-    return sf::Vector2f(mapDoc["monete"][Index]["x"].GetInt(), mapDoc["blocchi"][Index]["y"].GetInt());
+    return sf::Vector2f(mapDoc["monete"][Index]["x"].GetInt(), mapDoc["monete"][Index]["y"].GetInt());
 }
 
 //Trova la larghezza e l'altezza della moneta 'Index' nel file json
 sf::Vector2f Map::dimCoin(int Index)
 {
-    return sf::Vector2f(mapDoc["monete"][Index]["w"].GetInt(), mapDoc["blocchi"][Index]["h"].GetInt());
+    return sf::Vector2f(mapDoc["monete"][Index]["w"].GetInt(), mapDoc["monete"][Index]["h"].GetInt());
 }
